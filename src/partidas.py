@@ -1,4 +1,5 @@
 import string #pra função de pegar os ascii
+import json
 
 def CarregarSelecoes(nomearquivo: str) -> dict:
     """Carrega as seleções que iram participar e as separa em seus respectivos grupos.
@@ -40,6 +41,35 @@ def CarregarSelecoes(nomearquivo: str) -> dict:
         #formato {'A': [time',time2 ...], 'B': ...} fatia de 4 em 4
         grupos[letra] = selecoes[inicio:fim] 
         
-    print("Sucesso: Grupos estruturados com sucesso!")
-    print (grupos)
     return grupos
+
+
+def GerarPrimeiraFase(grupos: list) -> list:
+    """Gera os todos os jogos da primeira fase
+
+    :param grupos: lista contendo os grupos com todas as seleções participantes;
+    :type grupos: list
+
+    :return: uma lista de dicionários de cada partida da fase
+    :rtype: lsit
+    """
+    
+    jogos = []
+    id = 0;
+    for grupo in grupos:
+        for i in range(len(grupos[grupo]) - 1):
+            for j in range((i + 1), len(grupos[grupo])):
+                id += 1
+                partida = {
+                    "id": id,
+                    "fase": 1,
+                    "grupo": grupo,
+                    "selecao1": grupos[grupo][i],
+                    "selecao2": grupos[grupo][j],
+                    "gols1": -1,
+                    "gols2": -1,
+                }
+
+                jogos.append(partida)
+ 
+    return jogos
