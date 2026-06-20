@@ -36,4 +36,4 @@ def CarregarSelecoes(nomearquivo):
     return grupos
 
 
-CarregarSelecoes('selecoes.txt')
+CarregarSelecoes('Archives/selecoes.txt')
