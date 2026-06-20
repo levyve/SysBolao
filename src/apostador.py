@@ -1,6 +1,8 @@
 import json
+from partidas import GerarPrimeiraFase, CarregarSelecoes
 
-def CadastrarApostador(jogos: list, nomearquivo: str = "apostadores.txt"):
+
+def CadastrarApostador(jogos: list, nomearquivo: str = "Archives/apostadores.txt"):
     """Cadastro um novo apostador
 
     :param nomearquivo: nome do arquivo que conterá os apostadores
