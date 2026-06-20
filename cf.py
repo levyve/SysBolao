@@ -1,1 +1,0 @@
-print("odeio esse trabalho")
