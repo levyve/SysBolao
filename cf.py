@@ -1,0 +1,1 @@
+print("odeio esse trabalho")
