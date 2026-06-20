@@ -12,9 +12,9 @@ def Consulta(dados_copa):
     
     opcao = int(input("\nDigite a opção desejada: "))
     if opcao == "1":
-        ListarCalendario
+        ListarCalendario()
     if opcao == "2":
-        ListarFase
+        ListarFase()
     if opcao == "3":
         ListarGrupo()
     if opcao == "4":
