@@ -4,7 +4,7 @@ def CadastrarApostador(nomearquivo):
         arq.seek(0) # o a+ faz o arquivo iniciar no final, isso aqui faz ele voltar pro inicio
         if nome.lower() in [linha.strip().lower() for linha in arq]: #Verifica se o nome é repetido
             return print("Erro: Apostador já cadastrado!")
-        arq.write('\n'+nome )
+        arq.write('\n'+nome ) #/n é quebra de linha
         
 
 

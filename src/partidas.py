@@ -54,7 +54,7 @@ def GerarPrimeiraFase(grupos: list) -> list:
     """
     
     jogos = []
-    id = 0;
+    id = 0
     for grupo in grupos:
         for i in range(len(grupos[grupo]) - 1):
             for j in range((i + 1), len(grupos[grupo])):
