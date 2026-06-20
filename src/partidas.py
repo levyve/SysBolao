@@ -43,7 +43,6 @@ def CarregarSelecoes(nomearquivo: str) -> dict:
         
     return grupos
 
-
 def GerarPrimeiraFase(grupos: list) -> list:
     """Gera os todos os jogos da primeira fase
 
