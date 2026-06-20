@@ -1,3 +1,5 @@
+from src.partidas import GerarPrimeiraFase, CarregarSelecoes
+from src.apostador import CadastrarApostador
 def ConsultarDados(dados_copa):
     print("\n******** Consulta de Dados ********")
     print("1. Listar calendário completo de jogos")
@@ -48,6 +50,7 @@ def menu_principal():
     opcao = input("\nDigite a opção desejada: ")
     if opcao == "1":
         CarregarSelecoes()
+        GerarPrimeiraFase()
     if opcao == "2":
         CadastrarApostador()
     if opcao == "3":
@@ -66,3 +69,5 @@ def menu_principal():
         ConsultarDados()
     if opcao == "10": 
         Sair()
+
+menu_principal()

@@ -1,6 +1,4 @@
 import json
-from partidas import GerarPrimeiraFase, CarregarSelecoes
-
 
 def CadastrarApostador(jogos: list, nomearquivo: str = "Archives/apostadores.txt"):
     """Cadastro um novo apostador
@@ -19,6 +17,7 @@ def CadastrarApostador(jogos: list, nomearquivo: str = "Archives/apostadores.txt
             return print("Erro: Apostador já cadastrado!")
         arq.write('\n'+nome ) #/n é quebra de linha
         CriarArquivoPalpite(jogos, nome)
+    i = input("Aperte enter para continuar")
 
 
 
