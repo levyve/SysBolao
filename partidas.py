@@ -1,6 +1,15 @@
 import string #pra função de pegar os ascii
 
-def CarregarSelecoes(nomearquivo):
+def CarregarSelecoes(nomearquivo: str) -> dict:
+    """Carrega as seleções que iram participar e as separa em seus respectivos grupos.
+
+    :param nomearquivo: nome do arquivo .txt que contem as 48 seleções.
+    :type nomearquivo: string
+
+    :return: um dicionário contendo os grupos e a seleções de cada grupo.
+    :rtype: dict
+    """
+
     grupos = {}
     
     with open(nomearquivo, 'r', encoding='utf-8') as arq:
@@ -34,6 +43,3 @@ def CarregarSelecoes(nomearquivo):
     print("Sucesso: Grupos estruturados com sucesso!")
     print (grupos)
     return grupos
-
-
-CarregarSelecoes('selecoes.txt')
