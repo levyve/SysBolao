@@ -1,6 +1,6 @@
 from src.partidas import Gerar_Primeira_Fase, Carregar_Selecoes
 from src.apostador import Cadastrar_Apostador
-from src.calendario import Listar_Calendario
+from src.consulta import Listar_Calendario
 def ConsultarDados():
     print("\n******** Consulta de Dados ********")
     print("1. Listar calendário completo de jogos")
@@ -51,7 +51,7 @@ def Menu_Principal():
     opcao = input("\nDigite a opção desejada: ")
     if opcao == "1":
         try:
-            Gerar_Primeira_Fase(Carregar_Selecoes('Archives/selecoes.tx'))
+            Gerar_Primeira_Fase(Carregar_Selecoes('Archives/txt/selecoes.tx'))
             input('Selecoes carregadas, Primeira Fase gerada. Pressione enter para continuar \n')
         except:
             input('Erro ao Carregar as selecoes e gerar Fase, Pressione enter para continuar')
