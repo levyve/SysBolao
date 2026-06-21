@@ -1,7 +1,7 @@
-from src.apostador import Carregar_Palpites, Atualizar_Palpites
-from src.partidas import Encontrar_Jogo, Exibir_Jogo
+from apostador import Carregar_Palpites, Atualizar_Palpites
+from partidas import Encontrar_Jogo, Exibir_Jogo, Validar_Jogador
 
-def Sub_Menu_Interativo(apostador: str):
+def SubMenu_Interativo(apostador: str):
     """Submenu Interativo no qual o apostador pode listar jogos de seu bolão e alterar/cadastrar o placar de um jogo específico.
 
     :param apostador: nome do apostador.
@@ -101,3 +101,106 @@ def Sub_Menu_Interativo(apostador: str):
 
         elif (int(opcao) == 4):
             break
+
+
+def Exibir_Tutorial_B(apostador: str):
+     """Exibe um tutorial sobre como fazer o cadastro ou alteração de palpite(s) em Lote.
+
+     :param apostador: nome do apostador que deseja alterar ou cadastrar palpite(s)
+     :type apostador: str
+     """
+     print(f"""
+        ===========================================
+            COMO USAR O CADASTRO EM LOTE
+        ===========================================
+
+        Com essa opção, você pode editar seus palpites diretamente no SEU arquivo de dados, 
+        sem precisar preenchê-los um a um pela interface do programa.
+
+        O sistema, automaticamente, já parou a execução. 
+        Isso evita conflitos de acesso ao arquivo e garante que suas alterações não sejam perdidas ou corrompidas.
+        Quando terminar, inicie o programa novamente.
+
+        -------------------------------------PASSO A PASSO-------------------------------------
+
+        ----> Passo 1: Localize o arquivo JSON
+        + Encontre o seu arquivo JSON, ele estará no caminho "Archives/json/" com o nome "palpites_{apostador}.json". 
+        + Este é arquivo que contém os dados de todos os jogos, com ou sem seus palpites. 
+        + DECORE, ou ANOTE O CAMINHO, pois você precisará devolver o arquivo alterado EXATAMENTE nesse mesmo lugar depois de editá-lo.
+
+        ----> Passo 2: Abra o arquivo em um editor de texto
+        + Use um editor de texto simples (como Bloco de Notas, Notepad++, VS Code, etc.) para abrir o arquivo e altera o arquivo. 
+        + EVITE usar editores que possam alterar a formatação do JSON (como o Word).
+        """)
+     
+     print("""
+        ----> Passo 3: Edite os resultados dos jogos
+        + A estrutura de cada partida/jogo será como a seguinte:
+            {
+                "id": 37, ----> ID do jogo
+                "fase": 1, ----> Fase
+                "grupo": "G", ----> Grupo
+                "selecao1": "Brasil", ----> Primeira Seleção
+                "selecao2": "Uruguai", ----> Segunda Seleção
+                "gols1": -1, ----> Gols da primeira seleção - Este é o campo que você deve modificar
+                "gols2": -1 ----> Gols da segunda seleção - Este é o campo que você deve modificar
+            }
+
+        + Insira ou modifique diretamente no arquivo seus palpites sobre os jogos. 
+        + Essa inserção deve ser feita nos locais ao lado dos "gols1" e "gols2" (onde está -1).
+        + Números negativos serão considerados com palpites pendentes.
+        + Respeite a estrutura original do JSON 
+        (NÃO ALETERE nomes de campos, vírgulas ou chaves, apenas os valores dos palpites em "gols1" e "gols2").
+            
+        --> Verifique se os resultados foram colocados corretamente antes de finalizar.
+
+        ----------------------------------------------------------------------------------------------------------
+        ATENÇÃO: qualquer erro de formatação (vírgula faltando, chave não fechada, etc.) 
+        pode impedir que o arquivo seja lido corretamente quando o programa for reaberto, resultando em falha.
+        ----------------------------------------------------------------------------------------------------------
+        """)
+
+     print(f"""
+        ----> Passo 5: Salve o arquivo
+        + Salve as alterações no MESMO LOCAL e com o MESMO NOME (palpites_{apostador}.json) 
+        em que o arquivo estava originalmente (no caminho "Archives/json/").
+
+        ----> Passo 6: Inicie o programa novamente
+        + Inicie o programa novamente. 
+        + Se tudo tiver sido feito da forma correta, 
+        ele identificará automaticamente o arquivo modificado e carregará os palpites atualizados.
+        """) 
+     
+     print("^ LEIA O TUTORIAL ACIMA PARA SABER COMO FAZER UM CADASTRO EM LOTE ^\n")
+
+
+def Cadastrar_Palpites(modo: str):
+    """Verifica qual modo de cadastro de palpites o apostador escolheu.
+    
+    :param modo: modo de cadastro de palpites escolhido pelo apostador: 'a' --> cadastro interativo; 'b' --> cadastro em lote.
+    :type modo: str
+
+    :return False: retorna False se ocorreu algum erro durante o cadastro de palpites.
+    :rtype: bool
+
+    :return None: retorna None para informar ao sistema para parar sua execução.
+    :rtype None:
+    """
+    
+    if (modo.lower() != 'a' and modo.lower() != 'b'):
+        print("ERRO: jogador não selecionou uma opção válida!")
+        return False
+    
+
+    apostador = input("Nome do apostador: ")
+    if (modo.lower() == 'a'):
+
+        if(Validar_Jogador(apostador)):
+            SubMenu_Interativo(apostador)
+            
+        else:
+            print("Erro! Apostador não cadastrado no sistema.")
+            return False
+    else:
+       Exibir_Tutorial_B(apostador)
+       return None
