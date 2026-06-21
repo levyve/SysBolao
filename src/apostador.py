@@ -1,15 +1,15 @@
 import json
 import random
 
-def Atualizar_Arquivo_Palpites(jogos: list, apostador: str):
+def Atualizar_Arquivo_Palpites(apostador: str):
     """Atualiza/Cria um arquivo de palpites pera um apostador
-
-    :param jogos: uma lista de jogos contendo cada partida.
-    :type jogos: list
 
     :param apostador: nome do apostador
     :type apostador: str
     """
+
+    with open('Archives/json/estrutura_jogos.json', 'r', encoding='utf-8') as arq:
+        jogos = json.load(arq)
 
     with open(f'Archives/json/palpites_{apostador}.json', 'w', encoding='utf-8') as arq:
         json.dump(jogos, arq, indent=4, ensure_ascii=False)
@@ -70,11 +70,8 @@ def Validar_Jogador(nome: str):
         else:
             return False
 
-def Cadastrar_Apostador(jogos: list):
+def Cadastrar_Apostador():
     """Cadastra um novo apostador
-
-    :param jogos: uma lista de jogos contendo cada partida.
-    :type jogos: list
     """
 
     nome = input("Insira o nome do novo apostador: ")
@@ -85,7 +82,7 @@ def Cadastrar_Apostador(jogos: list):
         
         arq.write('\n'+nome )
 
-    Atualizar_Arquivo_Palpites(jogos, nome)
+    Atualizar_Arquivo_Palpites(nome)
 
 
 def Carregar_Palpites(apostador: str) -> list:

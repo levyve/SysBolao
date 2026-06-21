@@ -1,14 +1,48 @@
 import string #pra função de pegar os ascii
 import json
 
+def Criar_Arquivo_Padrao(jogos: list):
+    """Cria um arquivo JSON contendo todos os 72 jogos para 1º fase, servindo como "estrutua base".
+    
+    :param jogos: uma lista contendo todos os jogos, sem qualquer palpite.
+    :type jogos: list
+    """
+
+    with open('Archives/json/estrutura_jogos.json', 'w', encoding='utf-8') as arq:
+        json.dump(jogos, arq, indent=4, ensure_ascii=False)
+
+def Gerar_Primeira_Fase(grupos: dict) -> list:
+    """Gera os todos os jogos da primeira fase
+
+    :param grupos: lista contendo os grupos com todas as seleções participantes;
+    :type grupos: list
+    """
+    
+    jogos = []
+    id = 0
+    for grupo in grupos:
+        for i in range(len(grupos[grupo]) - 1):
+            for j in range((i + 1), len(grupos[grupo])):
+                id += 1
+                partida = {
+                    "id": id,
+                    "fase": 1,
+                    "grupo": grupo,
+                    "selecao1": grupos[grupo][i],
+                    "selecao2": grupos[grupo][j],
+                    "gols1": -1,
+                    "gols2": -1,
+                }
+
+                jogos.append(partida)
+
+    Criar_Arquivo_Padrao(jogos)
+
 def Carregar_Selecoes(nomearquivo: str) -> dict:
     """Carrega as seleções que iram participar e as separa em seus respectivos grupos.
 
     :param nomearquivo: nome do arquivo .txt que contem as 48 seleções.
     :type nomearquivo: string
-
-    :return: um dicionário contendo os grupos e a seleções de cada grupo.
-    :rtype: dict
     """
 
     grupos = {}
@@ -40,36 +74,8 @@ def Carregar_Selecoes(nomearquivo: str) -> dict:
         fim = inicio + 4
         #formato {'A': [time',time2 ...], 'B': ...} fatia de 4 em 4
         grupos[letra] = selecoes[inicio:fim] 
-    return grupos
-
-def Gerar_Primeira_Fase(grupos: dict) -> list:
-    """Gera os todos os jogos da primeira fase
-
-    :param grupos: lista contendo os grupos com todas as seleções participantes;
-    :type grupos: list
-
-    :return: uma lista de dicionários de cada partida da fase
-    :rtype: lsit
-    """
     
-    jogos = []
-    id = 0
-    for grupo in grupos:
-        for i in range(len(grupos[grupo]) - 1):
-            for j in range((i + 1), len(grupos[grupo])):
-                id += 1
-                partida = {
-                    "id": id,
-                    "fase": 1,
-                    "grupo": grupo,
-                    "selecao1": grupos[grupo][i],
-                    "selecao2": grupos[grupo][j],
-                    "gols1": -1,
-                    "gols2": -1,
-                }
-
-                jogos.append(partida)
-    return jogos
+    Gerar_Primeira_Fase(grupos)
 
 def Encontrar_Jogo(jogos: list, id: str):
     """Encontra um jogo específico pelo seu ID em uma lista de jogos.
@@ -113,4 +119,3 @@ def Exibir_Jogo(jogo: dict):
     Fase: {fases[jogo['fase']]}
     Grupo: {jogo['grupo']}
     Partida: {jogo['selecao1']} x {jogo['selecao2']}""")
-
