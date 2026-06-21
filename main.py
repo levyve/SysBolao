@@ -1,6 +1,6 @@
 from src.partidas import Gerar_Primeira_Fase, Carregar_Selecoes, Encontrar_Jogo
 from src.apostador import Cadastrar_Apostador
-from src.consulta import Listar_Calendario, jogos_por_grupo, jogos_por_fase, jogos_por_id
+from src.consulta import Listar_Calendario, jogos_por_grupo, jogos_por_fase, jogos_por_id, consulta_palpite
 def Consultar_Dados():
     print("\n******** Consulta de Dados ********")
     print("1. Listar calendário completo de jogos")
@@ -23,7 +23,7 @@ def Consultar_Dados():
     if opcao == "4":
         Encontrar_Jogo()
     if opcao == "5":
-        Palpites()
+        consulta_palpite()
     if opcao == "6":
         Palpites_Pendentes()
     if opcao == "7":
