@@ -1,3 +1,5 @@
+import json
+#importado para consulta_palpite
 def Listar_Calendario(jogos):
     '''mostra todas as partidas realizadas e as proximas!'''
     print("\n==========================================") 
@@ -73,4 +75,29 @@ def jogos_por_id(jogos):
             break
     if not id_gerado:
         print(f"a partida de ID: {id_escolhido} ainda não ocorreu")
-        #depois possivelmente botar um limite de IDs, tipo a partidade de ID: 1337 não está ocorrerá, os ID(s) variam de 1 a x             
+        #depois possivelmente botar um limite de IDs, tipo a partidade de ID: 1337 não está ocorrerá, os ID(s) variam de 1 a x
+
+def consulta_palpite():
+    '''permite usuario consultar seus palpites
+    '''    
+    nome = input("para ver seus paplpites insira o nome cadastrado no bolão:  ")
+    cadastro = False
+    nome_apostador = nome.lower()
+    with open("apostadores.txt", "r", encoding="utf-8") as arquivo:
+        for linha in arquivo:
+            nome_cadastro = linha.strip().lower()
+            if nome_apostador == nome_cadastro:
+                cadastro = True
+                break
+    if not cadastro:
+        print("usuário não cadastrado") 
+        return
+    nome_arquivo_json = f"palpites_{nome_cadastro}.json"
+    with open(nome_arquivo_json, "r", encoding="utf-8") as arquivo_json:
+            palpites = json.load(arquivo_json)
+    print(f"\n Palpites de {nome}:")
+    for palpite in palpites:
+        gols1 = palpite["gols1"] if palpite["gols1"] != -1 else ""
+        gols2 = palpite["gols2"] if palpite["gols2"] != -1 else ""
+        print(f"{palpite['selecao1']} {gols1} X {gols2} {palpite['selecao2']}")        
+                      #              
