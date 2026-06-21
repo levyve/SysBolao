@@ -7,9 +7,9 @@ def Listar_Calendario(jogos):
         gols1 = jogo["gols1"] if jogo["gols1"] != -1 else ""
         gols2 = jogo["gols2"] if jogo["gols2"] != -1 else ""
         print(f"ID: {jogo['ID']} - Fase: {jogo['fase']} - Grupo: {jogo['grupo']} ")
-        print(f"\n  {jogo['time1']} {gols1} X {gols2} {jogo['time2']}\n")
+        print(f"\n  {jogo['selecao1']} {gols1} X {gols2} {jogo['selecao2']}\n")
 
-def jogos_por_grupo(jogos):
+def jogos_por_fase(jogos):
     '''função  o dicionario de jogos
     jogos: arquivo contendo a lista de dicionarios com todos os dados sobre os jogos(id, placar, times, etc.)
     fase_escolhida: variavel escolhida pelo usuario para acessar o grupo em jogos
@@ -41,5 +41,20 @@ def jogos_por_grupo(jogos):
                 print(f"ID do jogo: {jogo['id']}\n")
             print(f"{jogo['selecao1']} {gols1} X {gols2} {jogo['selecao2']} \n ")
     if not fase_gerada:
-        print(f"O(s) jogo(s) da(s) {fase_escolhida} ")  
+        print(f"O(s) jogo(s) da(s) {fase_escolhida} ") 
+
+def jogos_por_grupo(jogos):
+    '''função recebe os grupo escolhido no menu e demonstra os jogos e placares desse grupo
+    jogos: arquivo contendo a lista de dicionarios com todos os dados sobre os jogos(id, placar, times, etc.)
+    grupo_escolhido: variavel escolhida pelo usuario para acessar o grupo em jogos
+    '''
+    grupo_escolhido = input("digite o grupo que você pretende checar: ").upper()
+    print(f"           Grupo: {grupo_escolhido}    ")
+    print("--------------------------------")
+    for jogo in jogos:
+        if jogo['grupo'] == grupo_escolhido:
+            gols1 = jogo["gols1"] if jogo["gols1"] != -1 else ""
+            gols2 = jogo["gols2"] if jogo["gols2"] != -1 else ""
+            print(f"ID do jogo: {jogo['id']}\n")
+            print(f"{jogo['selecao1']} {gols1} X {gols2} {jogo['selecao2']} \n ")
         
