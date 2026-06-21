@@ -1,5 +1,5 @@
 import json
-from partidas import Exibir_Jogo, Encontrar_Jogo, Gerar_Primeira_Fase, Carregar_Selecoes
+from src.partidas import Exibir_Jogo, Encontrar_Jogo, Gerar_Primeira_Fase, Carregar_Selecoes
 import random
 
 def Atualizar_Arquivo_Palpites(jogos: list, apostador: str):
