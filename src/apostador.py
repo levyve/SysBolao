@@ -16,7 +16,7 @@ def Cadastrar_Apostador(jogos: list, nomearquivo: str = "Archives/apostadores.tx
         if nome.lower() in [linha.strip().lower() for linha in arq]: #Verifica se o nome é repetido
             return print("Erro: Apostador já cadastrado!")
         arq.write('\n'+nome ) #/n é quebra de linha
-        CriarArquivoPalpite(jogos, nome)
+        Criar_Arquivo_Palpite(jogos, nome)
     i = input("Aperte enter para continuar")
 
 
