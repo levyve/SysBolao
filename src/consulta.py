@@ -82,22 +82,21 @@ def consulta_palpite():
     '''    
     nome = input("para ver seus paplpites insira o nome cadastrado no bolão:  ")
     cadastro = False
-    nome_apostador = nome.lower()
     with open("apostadores.txt", "r", encoding="utf-8") as arquivo:
         for linha in arquivo:
-            nome_cadastro = linha.strip().lower()
-            if nome_apostador == nome_cadastro:
+            nome_original = linha.strip()
+            if nome == nome_original:
                 cadastro = True
                 break
     if not cadastro:
         print("usuário não cadastrado") 
         return
-    nome_arquivo_json = f"palpites_{nome_cadastro}.json"
+    nome_arquivo_json = f"palpites_{nome_original}.json"
     with open(nome_arquivo_json, "r", encoding="utf-8") as arquivo_json:
-            palpites = json.load(arquivo_json)
+         palpites = json.load(arquivo_json)
     print(f"\n Palpites de {nome}:")
     for palpite in palpites:
         gols1 = palpite["gols1"] if palpite["gols1"] != -1 else ""
         gols2 = palpite["gols2"] if palpite["gols2"] != -1 else ""
-        print(f"{palpite['selecao1']} {gols1} X {gols2} {palpite['selecao2']}")        
+        print(f"{palpite['selecao1']} {gols1} X {gols2} {palpite['selecao2']}")
                       #              
