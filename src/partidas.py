@@ -42,7 +42,7 @@ def Carregar_Selecoes(nomearquivo: str) -> dict:
         grupos[letra] = selecoes[inicio:fim] 
     return grupos
 
-def Gerar_Primeira_Fase(grupos: list) -> list:
+def Gerar_Primeira_Fase(grupos: dict) -> list:
     """Gera os todos os jogos da primeira fase
 
     :param grupos: lista contendo os grupos com todas as seleções participantes;

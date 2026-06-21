@@ -1,6 +1,5 @@
 import json
-from src.submenu import Sub_Menu_Interativo, Exibir_Tutorial_B
-from partidas import Exibir_Jogo, Encontrar_Jogo
+from partidas import Exibir_Jogo, Encontrar_Jogo, Gerar_Primeira_Fase, Carregar_Selecoes
 import random
 
 def Atualizar_Arquivo_Palpites(jogos: list, apostador: str):
@@ -313,4 +312,25 @@ def Cadastrar_Palpites(modo: str):
 
 
 def Completar_Palpites_Aleatoriamente(apostador: str, jogos: list):
-       pass
+    
+    qtd_preenchidos = 0
+    for jogo in jogos:
+        if (jogo['gols1'] == -1 or jogo['gols2'] == -1):
+            gols1 = random.randint(0, 10)
+            gols2 = random.randint(0, 10)
+
+            if (jogo['fase'] != 1):  # fases eliminatórias não permitem empate
+                while (gols1 == gols2):
+                    gols1 = random.randint(0, 10)
+                    gols2 = random.randint(0, 10)
+
+            jogo['gols1'] = gols1
+            jogo['gols2'] = gols2
+            qtd_preenchidos += 1
+
+    Atualizar_Arquivo_Palpites(jogos, apostador)
+
+    print(f"\n{qtd_preenchidos} palpite(s) pendente(s) preenchido(s) aleatoriamente para {apostador}!")
+
+
+Completar_Palpites_Aleatoriamente('levy', jogos=(Gerar_Primeira_Fase(Carregar_Selecoes('Archives/txt/selecoes.txt'))))
