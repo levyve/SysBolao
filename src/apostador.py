@@ -1,6 +1,6 @@
 import json
 
-def CadastrarApostador(jogos: list, nomearquivo: str = "Archives/apostadores.txt"):
+def Cadastrar_Apostador(jogos: list, nomearquivo: str = "Archives/txt/apostadores.txt"):
     """Cadastro um novo apostador
 
     :param nomearquivo: nome do arquivo que conterá os apostadores
@@ -16,12 +16,12 @@ def CadastrarApostador(jogos: list, nomearquivo: str = "Archives/apostadores.txt
         if nome.lower() in [linha.strip().lower() for linha in arq]: #Verifica se o nome é repetido
             return print("Erro: Apostador já cadastrado!")
         arq.write('\n'+nome ) #/n é quebra de linha
-        CriarArquivoPalpite(jogos, nome)
+        Criar_Arquivo_Palpite(jogos, nome)
     i = input("Aperte enter para continuar")
 
 
 
-def CriarArquivoPalpite(jogos: list, apostador: str):
+def Criar_Arquivo_Palpite(jogos: list, apostador: str):
     """Cria um arquivo de palpites pera um apostador
 
     :param jogos: uma lista de jogos contendo cada partida.
@@ -31,5 +31,5 @@ def CriarArquivoPalpite(jogos: list, apostador: str):
     :type apostador: str
     """
 
-    with open(f"Archives/palpite_{apostador}.json", "w", encoding="utf-8") as arq:
+    with open(f"Archives/json/palpite_{apostador}.json", "w", encoding="utf-8") as arq:
         json.dump(jogos, arq, indent=4, ensure_ascii=False)

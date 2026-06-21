@@ -1,7 +1,7 @@
 import string #pra função de pegar os ascii
 import json
 
-def CarregarSelecoes(nomearquivo: str) -> dict:
+def Carregar_Selecoes(nomearquivo: str) -> dict:
     """Carrega as seleções que iram participar e as separa em seus respectivos grupos.
 
     :param nomearquivo: nome do arquivo .txt que contem as 48 seleções.
@@ -42,7 +42,7 @@ def CarregarSelecoes(nomearquivo: str) -> dict:
         grupos[letra] = selecoes[inicio:fim] 
     return grupos
 
-def GerarPrimeiraFase(grupos: list) -> list:
+def Gerar_Primeira_Fase(grupos: list) -> list:
     """Gera os todos os jogos da primeira fase
 
     :param grupos: lista contendo os grupos com todas as seleções participantes;

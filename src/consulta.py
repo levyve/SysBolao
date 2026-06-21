@@ -1,4 +1,4 @@
-def lista_de_calendarios(jogos):
+def Listar_Calendario(jogos):
     '''mostra todas as partidas realizadas e as proximas!'''
     print("\n==========================================") 
     print("          LISTA DE CALENDÁRIOS           ")
