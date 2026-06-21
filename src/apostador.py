@@ -1,4 +1,5 @@
 import json
+from src.submenu import Sub_Menu_Interativo, Exibir_Tutorial_B
 import random
 
 def Atualizar_Arquivo_Palpites(jogos: list, apostador: str):
@@ -68,7 +69,6 @@ def Validar_Jogador(nome: str):
         
         else:
             return False
-
 
 def Cadastrar_Apostador(jogos: list):
     """Cadastra um novo apostador
