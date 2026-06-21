@@ -14,8 +14,8 @@
         "grupo": "A",
         "selecao1": "Canadá",
         "selecao2": "México",
-        "gols1": 2,
-        "gols2": 5
+        "gols1": 10,
+        "gols2": 4
     },
     {
         "id": 3,
@@ -176,6 +176,8 @@
         "grupo": "D",
         "selecao1": "Gana",
         "selecao2": "Cabo Verde",
+        "gols1": 1,
+        "gols2": 2
         "gols1": 1,
         "gols2": 2
     },
