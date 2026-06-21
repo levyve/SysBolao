@@ -1,6 +1,7 @@
 import json
+import random
 
-def AtualizarArquivoPalpites(jogos: list, apostador: str):
+def Atualizar_Arquivo_Palpites(jogos: list, apostador: str):
     """Atualiza/Cria um arquivo de palpites pera um apostador
 
     :param jogos: uma lista de jogos contendo cada partida.
@@ -14,7 +15,7 @@ def AtualizarArquivoPalpites(jogos: list, apostador: str):
         json.dump(jogos, arq, indent=4, ensure_ascii=False)
 
 
-def AtualizarPalpites(apostador: str, jogos: list, id: str, gols1: str, gols2: str):
+def Atualizar_Palpites(apostador: str, jogos: list, id: str, gols1: str, gols2: str):
     """Atualiza o palpite de um dados apostador em um jogo específico.
 
     :param apostador: nome do apostador.
@@ -48,10 +49,10 @@ def AtualizarPalpites(apostador: str, jogos: list, id: str, gols1: str, gols2: s
             jogos.insert(jogos.index(jogo), partida)
             jogos.pop(jogos.index(jogo))
     
-    AtualizarArquivoPalpites(jogos, apostador)
+    Atualizar_Arquivo_Palpites(jogos, apostador)
 
 
-def ValidarJogador(nome: str):
+def Validar_Jogador(nome: str):
     """Valida se um apostador já foi cadastrado
     
     :param nome: nome do apostador.
@@ -68,7 +69,8 @@ def ValidarJogador(nome: str):
         else:
             return False
 
-def CadastrarApostador(jogos: list):
+
+def Cadastrar_Apostador(jogos: list):
     """Cadastra um novo apostador
 
     :param nomearquivo: nome do arquivo que conterá os apostadores
@@ -80,16 +82,16 @@ def CadastrarApostador(jogos: list):
 
     nome = input("Insira o nome do novo apostador: ")
     with open('Archives/txt/apostadores.txt', 'a+', encoding='utf-8') as arq: ## a+ é leitura e escrita sem apagar, nao substitui o texto, adiciona
-        if(ValidarJogador(nome)):
+        if(Validar_Jogador(nome)):
             print("Erro: Apostador já cadastrado!")
             return None
         
         arq.write('\n'+nome )
 
-    AtualizarArquivoPalpites(jogos, nome)
+    Atualizar_Arquivo_Palpites(jogos, nome)
 
 
-def CarregarPalpites(apostador: str) -> list:
+def Carregar_Palpites(apostador: str) -> list:
     """Carrega os palpites do arquivo de um apostador.
 
     :param apostador: nome do apostador.
@@ -104,7 +106,7 @@ def CarregarPalpites(apostador: str) -> list:
     return jogos
 
 
-def ExibirJogo(jogo: dict):
+def Exibir_Jogo(jogo: dict):
     """Exibe um jogo específico em um formato padrão.
 
     :param jogo: um dicionário que representa um jogo específico a ser exibido.
@@ -126,7 +128,7 @@ def ExibirJogo(jogo: dict):
     Partida: {jogo['selecao1']} x {jogo['selecao2']}""")
 
 
-def EncontrarJogo(jogos: list, id: str):
+def Encontrar_Jogo(jogos: list, id: str):
     """Encontra um jogo específico pelo seu ID em uma lista de jogos.
     
     :param jogos: uma lista contendo todos os jogos, com ou sem palpites.
@@ -220,7 +222,8 @@ def Exibir_Tutorial_B(apostador: str):
      
      print("^ LEIA O TUTORIAL ACIMA PARA SABER COMO FAZER UM CADASTRO EM LOTE ^\n")
 
-def SubMenuInterativo(apostador: str):
+
+def SubMenu_Interativo(apostador: str):
     """Submenu Interativo no qual o apostador pode listar jogos de seu bolão e alterar/cadastrar o placar de um jogo específico.
 
     :param apostador: nome do apostador.
@@ -242,7 +245,7 @@ def SubMenuInterativo(apostador: str):
             opcao = input("Por favor, digite uma opção válida: ")
         
         
-        jogos = CarregarPalpites(apostador)
+        jogos = Carregar_Palpites(apostador)
         if (int(opcao) == 1):
 
             print("""
@@ -252,7 +255,7 @@ def SubMenuInterativo(apostador: str):
             """)
 
             for jogo in jogos:
-                ExibirJogo(jogo)
+                Exibir_Jogo(jogo)
 
                 print(f"""
     Seu palpite:
@@ -272,7 +275,7 @@ def SubMenuInterativo(apostador: str):
             
             for jogo in jogos:
                 if(jogo['gols1'] == -1 or jogo['gols2'] == -1):
-                    ExibirJogo(jogo)
+                    Exibir_Jogo(jogo)
 
                     print(f"""
     Palpite:
@@ -289,14 +292,14 @@ def SubMenuInterativo(apostador: str):
                 print("ERRO! O ID informado não é um ID válido.")
                 id_partida = input("Por favor, digite um ID válido (Número): ")
             
-            jogo = EncontrarJogo(jogos, id_partida)
+            jogo = Encontrar_Jogo(jogos, id_partida)
             if (jogo == None):
                 continue
             
             print("""
     Jogo encontrado:""")
 
-            ExibirJogo(jogo)
+            Exibir_Jogo(jogo)
 
             print(f"""
     Palpite atual:
@@ -313,7 +316,7 @@ def SubMenuInterativo(apostador: str):
                 print("\nERRO! O número de gols informado não é um número.")
                 id_partida = input(f"Por favor, digite uma quantidade de gols válida para {jogo['selecao2']}: ")
 
-            AtualizarPalpites(apostador, jogos, id_partida, novo_gols1, novo_gols2)
+            Atualizar_Palpites(apostador, jogos, id_partida, novo_gols1, novo_gols2)
 
             print("\nPalpite cadastrado com sucesso!")
             print(f"\n{jogo['selecao1']} {novo_gols1} x {novo_gols2} {jogo['selecao2']}")
@@ -322,7 +325,7 @@ def SubMenuInterativo(apostador: str):
             break
 
 
-def CadastrarPalpites(modo: str):
+def Cadastrar_Palpites(modo: str):
     """Verifica qual modo de cadastro de palpites o apostador escolheu.
     
     :param modo: modo de cadastro de palpites escolhido pelo apostador: 'a' --> cadastro interativo; 'b' --> cadastro em lote.
@@ -343,8 +346,8 @@ def CadastrarPalpites(modo: str):
     apostador = input("Nome do apostador: ")
     if (modo.lower() == 'a'):
 
-        if(ValidarJogador(apostador)):
-            SubMenuInterativo(apostador)
+        if(Validar_Jogador(apostador)):
+            SubMenu_Interativo(apostador)
             
         else:
             print("Erro! Apostador não cadastrado no sistema.")
@@ -352,3 +355,7 @@ def CadastrarPalpites(modo: str):
     else:
        Exibir_Tutorial_B(apostador)
        return None
+
+
+def Completar_Palpites_Aleatoriamente(apostador: str, jogos: list):
+       pass
