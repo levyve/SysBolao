@@ -1,5 +1,6 @@
-from src.partidas import GerarPrimeiraFase, CarregarSelecoes
-from src.apostador import CadastrarApostador
+from src.partidas import Gerar_Primeira_Fase, Carregar_Selecoes
+from src.apostador import Cadastrar_Apostador
+from src.calendario import Listar_Calendario
 def ConsultarDados():
     print("\n******** Consulta de Dados ********")
     print("1. Listar calendário completo de jogos")
@@ -14,25 +15,25 @@ def ConsultarDados():
     
     opcao = input("\nDigite a opção desejada: ")
     if opcao == "1":
-        ListarCalendario()
+        Listar_Calendario()
     if opcao == "2":
-        ListarFase()
+        Listar_Fase()
     if opcao == "3":
-        ListarGrupo()
+        Listar_Grupo()
     if opcao == "4":
-        BuscaID()
+        Busca_ID()
     if opcao == "5":
         Palpites()
     if opcao == "6":
-        PalpitesPendentes()
+        Palpites_Pendentes()
     if opcao == "7":
-        GabaritoOficial()
+        Gabarito_Oficial()
     if opcao == "8":
-        ResultadosPendentes()
+        Resultados_Pendentes()
     if opcao == "9":
-        MenuPrincipal()
+        Menu_Principal()
 
-def MenuPrincipal():
+def Menu_Principal():
     print("\n==========================================")
     print("          SISTEMA BOLÃO DA COPA           ")
     print("==========================================")
@@ -50,30 +51,30 @@ def MenuPrincipal():
     opcao = input("\nDigite a opção desejada: ")
     if opcao == "1":
         try:
-            GerarPrimeiraFase(CarregarSelecoes('Archives/selecoes.tx'))
+            Gerar_Primeira_Fase(Carregar_Selecoes('Archives/selecoes.tx'))
             input('Selecoes carregadas, Primeira Fase gerada. Pressione enter para continuar \n')
         except:
             input('Erro ao Carregar as selecoes e gerar Fase, Pressione enter para continuar')
     if opcao == "2":
-       CadastrarApostador()
+       Cadastrar_Apostador()
     if opcao == "3":
-        RegistrarPalpites()
+        Registrar_Palpites()
     if opcao == "4":
-        CompletarPalpites()
+        Completar_Palpites()
     if opcao == "5":
-        GerarFase()
+        Gerar_Fase()
     if opcao == "6":
-        CadastrarGabarito()
+        Cadastrar_Gabarito()
     if opcao == "7":
-        ConsultarPontuacao()
+        Consultar_Pontuacao()
     if opcao == "8":
-        ResultadoFinal()
+        Resultado_Final()
     if opcao == "9":
-        ConsultarDados()
+        Consultar_Dados()
         return None
     if opcao == "10": 
         return None
-    MenuPrincipal()
+    Menu_Principal()
     
 
-MenuPrincipal()
+Menu_Principal()

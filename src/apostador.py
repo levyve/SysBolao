@@ -1,6 +1,6 @@
 import json
 
-def CadastrarApostador(jogos: list, nomearquivo: str = "Archives/apostadores.txt"):
+def Cadastrar_Apostador(jogos: list, nomearquivo: str = "Archives/apostadores.txt"):
     """Cadastro um novo apostador
 
     :param nomearquivo: nome do arquivo que conterá os apostadores
@@ -21,7 +21,7 @@ def CadastrarApostador(jogos: list, nomearquivo: str = "Archives/apostadores.txt
 
 
 
-def CriarArquivoPalpite(jogos: list, apostador: str):
+def Criar_Arquivo_Palpite(jogos: list, apostador: str):
     """Cria um arquivo de palpites pera um apostador
 
     :param jogos: uma lista de jogos contendo cada partida.
