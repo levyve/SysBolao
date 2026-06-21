@@ -57,4 +57,17 @@ def jogos_por_grupo(jogos):
             gols2 = jogo["gols2"] if jogo["gols2"] != -1 else ""
             print(f"ID do jogo: {jogo['id']}\n")
             print(f"{jogo['selecao1']} {gols1} X {gols2} {jogo['selecao2']} \n ")
-        
+def jogos_por_id(jogos):
+    id_escolhido = input("digite o numero do id do jogo que você pretende checar: ")
+    id_gerado = False
+    for jogo in jogos:
+        if jogo['id'] == id_escolhido:
+            id_gerado = True
+            gols1 = jogo["gols1"] if jogo["gols1"] != -1 else ""
+            gols2 = jogo["gols2"] if jogo["gols2"] != -1 else ""            
+            print(f"ID: {jogo['id']}")
+            print(f"{jogo['selecao1']} {gols1} X {gols2} {jogo['selecao2']}")
+            break
+    if not id_gerado:
+        print(f"a partida de ID: {id_escolhido} ainda não ocorreu")
+        #depois possivelmente botar um limite de IDs, tipo a partidade de ID: 1337 não está ocorrerá, os ID(s) variam de 1 a x             
