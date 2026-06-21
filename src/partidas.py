@@ -70,3 +70,47 @@ def Gerar_Primeira_Fase(grupos: list) -> list:
 
                 jogos.append(partida)
     return jogos
+
+def Encontrar_Jogo(jogos: list, id: str):
+    """Encontra um jogo específico pelo seu ID em uma lista de jogos.
+    
+    :param jogos: uma lista contendo todos os jogos, com ou sem palpites.
+    :type: list
+
+    :param id: o ID do jogo que se deseja encontrar.
+    :type id: str
+
+    :return jogo: um dicionário que representa o jogo referente ao ID informado.
+    :rtype jogo: dict
+
+    :return None: retorna None caso o jogo com o ID informado não exista. 
+    :rtype None: None
+    """
+    
+    for jogo in jogos:
+        if (jogo['id'] == int(id)):
+            return jogo
+        
+    print("ERRO! O ID informado não existe!")
+    return None
+def Exibir_Jogo(jogo: dict):
+    """Exibe um jogo específico em um formato padrão.
+
+    :param jogo: um dicionário que representa um jogo específico a ser exibido.
+    :type jogo: dict
+    """
+
+    fases = {
+        1: "Primeira Fase",
+        2: "Segunda Fase",
+        3: "Oitavas de Final",
+        4: "Quartas de Final",
+        5: "Semifinal",
+        6: "Final"}
+    
+    print(f"""
+    ID: {jogo['id']}
+    Fase: {fases[jogo['fase']]}
+    Grupo: {jogo['grupo']}
+    Partida: {jogo['selecao1']} x {jogo['selecao2']}""")
+
