@@ -6,7 +6,10 @@ def Listar_Calendario(jogos):
     for jogo in jogos:
         gols1 = jogo["gols1"] if jogo["gols1"] != -1 else ""
         gols2 = jogo["gols2"] if jogo["gols2"] != -1 else ""
-        print(f"ID: {jogo['ID']} - Fase: {jogo['fase']} - Grupo: {jogo['grupo']} ")
+        if jogo['grupo'] != "none":
+            print(f"ID: {jogo['ID']} - Fase: {jogo['fase']} - Grupo: {jogo['grupo']} ")
+        else:
+            print(f"ID: {jogo['ID']} - Fase: {jogo['fase']} ")    
         print(f"\n  {jogo['selecao1']} {gols1} X {gols2} {jogo['selecao2']}\n")
 
 def jogos_por_fase(jogos):
