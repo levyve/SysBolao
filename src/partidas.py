@@ -40,7 +40,6 @@ def CarregarSelecoes(nomearquivo: str) -> dict:
         fim = inicio + 4
         #formato {'A': [time',time2 ...], 'B': ...} fatia de 4 em 4
         grupos[letra] = selecoes[inicio:fim] 
-        
     return grupos
 
 def GerarPrimeiraFase(grupos: list) -> list:
@@ -70,5 +69,4 @@ def GerarPrimeiraFase(grupos: list) -> list:
                 }
 
                 jogos.append(partida)
- 
     return jogos

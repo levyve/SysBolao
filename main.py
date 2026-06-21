@@ -1,6 +1,6 @@
 from src.partidas import GerarPrimeiraFase, CarregarSelecoes
 from src.apostador import CadastrarApostador
-def ConsultarDados(dados_copa):
+def ConsultarDados():
     print("\n******** Consulta de Dados ********")
     print("1. Listar calendário completo de jogos")
     print("2. Listar jogos por fase")
@@ -32,7 +32,7 @@ def ConsultarDados(dados_copa):
     if opcao == "9":
         MenuPrincipal()
 
-def menu_principal():
+def MenuPrincipal():
     print("\n==========================================")
     print("          SISTEMA BOLÃO DA COPA           ")
     print("==========================================")
@@ -49,10 +49,13 @@ def menu_principal():
     print("==========================================")
     opcao = input("\nDigite a opção desejada: ")
     if opcao == "1":
-        CarregarSelecoes()
-        GerarPrimeiraFase()
+        try:
+            GerarPrimeiraFase(CarregarSelecoes('Archives/selecoes.tx'))
+            input('Selecoes carregadas, Primeira Fase gerada. Pressione enter para continuar \n')
+        except:
+            input('Erro ao Carregar as selecoes e gerar Fase, Pressione enter para continuar')
     if opcao == "2":
-        CadastrarApostador()
+       CadastrarApostador()
     if opcao == "3":
         RegistrarPalpites()
     if opcao == "4":
@@ -67,7 +70,10 @@ def menu_principal():
         ResultadoFinal()
     if opcao == "9":
         ConsultarDados()
+        return None
     if opcao == "10": 
-        Sair()
+        return None
+    MenuPrincipal()
+    
 
-menu_principal()
+MenuPrincipal()
