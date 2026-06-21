@@ -352,5 +352,3 @@ def CadastrarPalpites(modo: str):
     else:
        Exibir_Tutorial_B(apostador)
        return None
-    
-CadastrarPalpites('b')
