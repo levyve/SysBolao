@@ -1,0 +1,650 @@
+[
+    {
+        "id": 1,
+        "fase": 1,
+        "grupo": "A",
+        "selecao1": "Canadá",
+        "selecao2": "Estados Unidos",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 2,
+        "fase": 1,
+        "grupo": "A",
+        "selecao1": "Canadá",
+        "selecao2": "México",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 3,
+        "fase": 1,
+        "grupo": "A",
+        "selecao1": "Canadá",
+        "selecao2": "Curaçao",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 4,
+        "fase": 1,
+        "grupo": "A",
+        "selecao1": "Estados Unidos",
+        "selecao2": "México",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 5,
+        "fase": 1,
+        "grupo": "A",
+        "selecao1": "Estados Unidos",
+        "selecao2": "Curaçao",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 6,
+        "fase": 1,
+        "grupo": "A",
+        "selecao1": "México",
+        "selecao2": "Curaçao",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 7,
+        "fase": 1,
+        "grupo": "B",
+        "selecao1": "Haiti",
+        "selecao2": "Panamá",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 8,
+        "fase": 1,
+        "grupo": "B",
+        "selecao1": "Haiti",
+        "selecao2": "Marrocos",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 9,
+        "fase": 1,
+        "grupo": "B",
+        "selecao1": "Haiti",
+        "selecao2": "Argélia",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 10,
+        "fase": 1,
+        "grupo": "B",
+        "selecao1": "Panamá",
+        "selecao2": "Marrocos",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 11,
+        "fase": 1,
+        "grupo": "B",
+        "selecao1": "Panamá",
+        "selecao2": "Argélia",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 12,
+        "fase": 1,
+        "grupo": "B",
+        "selecao1": "Marrocos",
+        "selecao2": "Argélia",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 13,
+        "fase": 1,
+        "grupo": "C",
+        "selecao1": "Egito",
+        "selecao2": "Costa do Marfim",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 14,
+        "fase": 1,
+        "grupo": "C",
+        "selecao1": "Egito",
+        "selecao2": "Tunísia",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 15,
+        "fase": 1,
+        "grupo": "C",
+        "selecao1": "Egito",
+        "selecao2": "África do Sul",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 16,
+        "fase": 1,
+        "grupo": "C",
+        "selecao1": "Costa do Marfim",
+        "selecao2": "Tunísia",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 17,
+        "fase": 1,
+        "grupo": "C",
+        "selecao1": "Costa do Marfim",
+        "selecao2": "África do Sul",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 18,
+        "fase": 1,
+        "grupo": "C",
+        "selecao1": "Tunísia",
+        "selecao2": "África do Sul",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 19,
+        "fase": 1,
+        "grupo": "D",
+        "selecao1": "Gana",
+        "selecao2": "Senegal",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 20,
+        "fase": 1,
+        "grupo": "D",
+        "selecao1": "Gana",
+        "selecao2": "Cabo Verde",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 21,
+        "fase": 1,
+        "grupo": "D",
+        "selecao1": "Gana",
+        "selecao2": "Irã",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 22,
+        "fase": 1,
+        "grupo": "D",
+        "selecao1": "Senegal",
+        "selecao2": "Cabo Verde",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 23,
+        "fase": 1,
+        "grupo": "D",
+        "selecao1": "Senegal",
+        "selecao2": "Irã",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 24,
+        "fase": 1,
+        "grupo": "D",
+        "selecao1": "Cabo Verde",
+        "selecao2": "Irã",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 25,
+        "fase": 1,
+        "grupo": "E",
+        "selecao1": "Catar",
+        "selecao2": "Arábia Saudita",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 26,
+        "fase": 1,
+        "grupo": "E",
+        "selecao1": "Catar",
+        "selecao2": "Coreia do Sul",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 27,
+        "fase": 1,
+        "grupo": "E",
+        "selecao1": "Catar",
+        "selecao2": "Japão",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 28,
+        "fase": 1,
+        "grupo": "E",
+        "selecao1": "Arábia Saudita",
+        "selecao2": "Coreia do Sul",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 29,
+        "fase": 1,
+        "grupo": "E",
+        "selecao1": "Arábia Saudita",
+        "selecao2": "Japão",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 30,
+        "fase": 1,
+        "grupo": "E",
+        "selecao1": "Coreia do Sul",
+        "selecao2": "Japão",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 31,
+        "fase": 1,
+        "grupo": "F",
+        "selecao1": "Uzbequistão",
+        "selecao2": "Jordânia",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 32,
+        "fase": 1,
+        "grupo": "F",
+        "selecao1": "Uzbequistão",
+        "selecao2": "Austrália",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 33,
+        "fase": 1,
+        "grupo": "F",
+        "selecao1": "Uzbequistão",
+        "selecao2": "Argentina",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 34,
+        "fase": 1,
+        "grupo": "F",
+        "selecao1": "Jordânia",
+        "selecao2": "Austrália",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 35,
+        "fase": 1,
+        "grupo": "F",
+        "selecao1": "Jordânia",
+        "selecao2": "Argentina",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 36,
+        "fase": 1,
+        "grupo": "F",
+        "selecao1": "Austrália",
+        "selecao2": "Argentina",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 37,
+        "fase": 1,
+        "grupo": "G",
+        "selecao1": "Brasil",
+        "selecao2": "Uruguai",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 38,
+        "fase": 1,
+        "grupo": "G",
+        "selecao1": "Brasil",
+        "selecao2": "Colômbia",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 39,
+        "fase": 1,
+        "grupo": "G",
+        "selecao1": "Brasil",
+        "selecao2": "Equador",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 40,
+        "fase": 1,
+        "grupo": "G",
+        "selecao1": "Uruguai",
+        "selecao2": "Colômbia",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 41,
+        "fase": 1,
+        "grupo": "G",
+        "selecao1": "Uruguai",
+        "selecao2": "Equador",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 42,
+        "fase": 1,
+        "grupo": "G",
+        "selecao1": "Colômbia",
+        "selecao2": "Equador",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 43,
+        "fase": 1,
+        "grupo": "H",
+        "selecao1": "Paraguai",
+        "selecao2": "Nova Zelândia",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 44,
+        "fase": 1,
+        "grupo": "H",
+        "selecao1": "Paraguai",
+        "selecao2": "Inglaterra",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 45,
+        "fase": 1,
+        "grupo": "H",
+        "selecao1": "Paraguai",
+        "selecao2": "Portugal",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 46,
+        "fase": 1,
+        "grupo": "H",
+        "selecao1": "Nova Zelândia",
+        "selecao2": "Inglaterra",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 47,
+        "fase": 1,
+        "grupo": "H",
+        "selecao1": "Nova Zelândia",
+        "selecao2": "Portugal",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 48,
+        "fase": 1,
+        "grupo": "H",
+        "selecao1": "Inglaterra",
+        "selecao2": "Portugal",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 49,
+        "fase": 1,
+        "grupo": "I",
+        "selecao1": "Croácia",
+        "selecao2": "Noruega",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 50,
+        "fase": 1,
+        "grupo": "I",
+        "selecao1": "Croácia",
+        "selecao2": "França",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 51,
+        "fase": 1,
+        "grupo": "I",
+        "selecao1": "Croácia",
+        "selecao2": "Alemanha",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 52,
+        "fase": 1,
+        "grupo": "I",
+        "selecao1": "Noruega",
+        "selecao2": "França",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 53,
+        "fase": 1,
+        "grupo": "I",
+        "selecao1": "Noruega",
+        "selecao2": "Alemanha",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 54,
+        "fase": 1,
+        "grupo": "I",
+        "selecao1": "França",
+        "selecao2": "Alemanha",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 55,
+        "fase": 1,
+        "grupo": "J",
+        "selecao1": "Holanda",
+        "selecao2": "Áustria",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 56,
+        "fase": 1,
+        "grupo": "J",
+        "selecao1": "Holanda",
+        "selecao2": "Bélgica",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 57,
+        "fase": 1,
+        "grupo": "J",
+        "selecao1": "Holanda",
+        "selecao2": "Escócia",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 58,
+        "fase": 1,
+        "grupo": "J",
+        "selecao1": "Áustria",
+        "selecao2": "Bélgica",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 59,
+        "fase": 1,
+        "grupo": "J",
+        "selecao1": "Áustria",
+        "selecao2": "Escócia",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 60,
+        "fase": 1,
+        "grupo": "J",
+        "selecao1": "Bélgica",
+        "selecao2": "Escócia",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 61,
+        "fase": 1,
+        "grupo": "K",
+        "selecao1": "Espanha",
+        "selecao2": "Suíça",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 62,
+        "fase": 1,
+        "grupo": "K",
+        "selecao1": "Espanha",
+        "selecao2": "Bósnia e Herzegovina",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 63,
+        "fase": 1,
+        "grupo": "K",
+        "selecao1": "Espanha",
+        "selecao2": "República Tcheca",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 64,
+        "fase": 1,
+        "grupo": "K",
+        "selecao1": "Suíça",
+        "selecao2": "Bósnia e Herzegovina",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 65,
+        "fase": 1,
+        "grupo": "K",
+        "selecao1": "Suíça",
+        "selecao2": "República Tcheca",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 66,
+        "fase": 1,
+        "grupo": "K",
+        "selecao1": "Bósnia e Herzegovina",
+        "selecao2": "República Tcheca",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 67,
+        "fase": 1,
+        "grupo": "L",
+        "selecao1": "Turquia",
+        "selecao2": "Suécia",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 68,
+        "fase": 1,
+        "grupo": "L",
+        "selecao1": "Turquia",
+        "selecao2": "RD Congo",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 69,
+        "fase": 1,
+        "grupo": "L",
+        "selecao1": "Turquia",
+        "selecao2": "Iraque",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 70,
+        "fase": 1,
+        "grupo": "L",
+        "selecao1": "Suécia",
+        "selecao2": "RD Congo",
+        "gols1": -1,
+        "gols2": -1
+    },
+    {
+        "id": 71,
+        "fase": 1,
+        "grupo": "L",
+        "selecao1": "Suécia",
+        "selecao2": "Iraque",
+        "gols1": 7,
+        "gols2": 4
+    },
+    {
+        "id": 72,
+        "fase": 1,
+        "grupo": "L",
+        "selecao1": "RD Congo",
+        "selecao2": "Iraque",
+        "gols1": 2,
+        "gols2": 1
+    }
+]
