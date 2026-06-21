@@ -10,7 +10,7 @@ def AtualizarArquivoPalpites(jogos: list, apostador: str):
     :type apostador: str
     """
 
-    with open(f'Archives/palpites_{apostador}.json', 'w', encoding='utf-8') as arq:
+    with open(f'Archives/json/palpites_{apostador}.json', 'w', encoding='utf-8') as arq:
         json.dump(jogos, arq, indent=4, ensure_ascii=False)
 
 
@@ -61,7 +61,7 @@ def ValidarJogador(nome: str):
     :rtype: bool
     """
     
-    with open('Archives/apostadores.txt', 'r', encoding='utf-8') as arq:
+    with open('Archives/txt/apostadores.txt', 'r', encoding='utf-8') as arq:
         if nome.lower() in [linha.strip().lower() for linha in arq]:
             return True
         
@@ -79,7 +79,7 @@ def CadastrarApostador(jogos: list):
     """
 
     nome = input("Insira o nome do novo apostador: ")
-    with open('Archives/apostadores.txt', 'a+', encoding='utf-8') as arq: ## a+ é leitura e escrita sem apagar, nao substitui o texto, adiciona
+    with open('Archives/txt/apostadores.txt', 'a+', encoding='utf-8') as arq: ## a+ é leitura e escrita sem apagar, nao substitui o texto, adiciona
         if(ValidarJogador(nome)):
             print("Erro: Apostador já cadastrado!")
             return None
@@ -89,17 +89,17 @@ def CadastrarApostador(jogos: list):
     AtualizarArquivoPalpites(jogos, nome)
 
 
-def CarregarPalpites(nome_arquivo: str) -> list:
+def CarregarPalpites(apostador: str) -> list:
     """Carrega os palpites do arquivo de um apostador.
 
-    :param nome_arquivo: nome do arquivo do apostador.
-    :type nome_arquivo: str
+    :param apostador: nome do apostador.
+    :type apostador: str
 
     :return: uma lista de todos os jogos, com ou sem palpites, do arquivo.
     :rtype: list
     """    
 
-    with open(nome_arquivo, 'r', encoding='utf-8') as arq:
+    with open(f'Archives/json/palpites_{apostador}', 'r', encoding='utf-8') as arq:
         jogos = json.load(arq)
     return jogos
 
@@ -171,7 +171,7 @@ def Exibir_Tutorial_B(apostador: str):
         -------------------------------------PASSO A PASSO-------------------------------------
 
         ----> Passo 1: Localize o arquivo JSON
-        + Encontre o seu arquivo JSON, ele estará na pasta "Archives" com o nome "palpites_{apostador}.json". 
+        + Encontre o seu arquivo JSON, ele estará no caminho "Archives/json/" com o nome "palpites_{apostador}.json". 
         + Este é arquivo que contém os dados de todos os jogos, com ou sem seus palpites. 
         + DECORE, ou ANOTE O CAMINHO, pois você precisará devolver o arquivo alterado EXATAMENTE nesse mesmo lugar depois de editá-lo.
 
@@ -210,7 +210,7 @@ def Exibir_Tutorial_B(apostador: str):
      print(f"""
         ----> Passo 5: Salve o arquivo
         + Salve as alterações no MESMO LOCAL e com o MESMO NOME (palpites_{apostador}.json) 
-        em que o arquivo estava originalmente (na pasta "Archives").
+        em que o arquivo estava originalmente (no caminho "Archives/json/").
 
         ----> Passo 6: Inicie o programa novamente
         + Inicie o programa novamente. 
@@ -242,7 +242,7 @@ def SubMenuInterativo(apostador: str):
             opcao = input("Por favor, digite uma opção válida: ")
         
         
-        jogos = CarregarPalpites(nome_arquivo=f'Archives/palpites_{apostador}.json')
+        jogos = CarregarPalpites(apostador)
         if (int(opcao) == 1):
 
             print("""
