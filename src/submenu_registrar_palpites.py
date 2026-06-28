@@ -1,5 +1,5 @@
-from apostador import Carregar_Palpites, Atualizar_Palpites
-from partidas import Encontrar_Jogo, Exibir_Jogo, Validar_Jogador
+from src.apostador import Carregar_Palpites, Atualizar_Palpites, Validar_Jogador
+from src.partidas import Encontrar_Jogo, Exibir_Jogo
 
 def SubMenu_Interativo(apostador: str):
     """Submenu Interativo no qual o apostador pode listar jogos de seu bolão e alterar/cadastrar o placar de um jogo específico.
@@ -37,9 +37,7 @@ def SubMenu_Interativo(apostador: str):
 
                 print(f"""
     Seu palpite:
-    {jogo['selecao1']} {jogo['gols1']} x {jogo['gols2']} {jogo['selecao2']}
-            """)
-                
+    {jogo['selecao1']} {jogo['gols1']} x {jogo['gols2']} {jogo['selecao2']}""")
                 print("""
     -----------------------------------------""")
 
@@ -52,14 +50,12 @@ def SubMenu_Interativo(apostador: str):
             """)
             
             for jogo in jogos:
-                if(jogo['gols1'] == -1 or jogo['gols2'] == -1):
+                if (jogo['gols1'] <= -1 or jogo['gols2'] <= -1):
                     Exibir_Jogo(jogo)
 
                     print(f"""
     Palpite:
-    {jogo['selecao1']} {jogo['gols1']} x {jogo['gols2']} {jogo['selecao2']}
-                """)
-                    
+    {jogo['selecao1']} {jogo['gols1']} x {jogo['gols2']} {jogo['selecao2']}""")  
                     print("""
     -----------------------------------------""")
 
@@ -72,10 +68,10 @@ def SubMenu_Interativo(apostador: str):
             
             jogo = Encontrar_Jogo(jogos, id_partida)
             if (jogo == None):
+                print("ERRO: Não há um jogo com o ID informado.")
                 continue
             
-            print("""
-    Jogo encontrado:""")
+            print("Jogo encontrado:")
 
             Exibir_Jogo(jogo)
 
@@ -84,12 +80,12 @@ def SubMenu_Interativo(apostador: str):
     {jogo['selecao1']} {jogo['gols1']} x {jogo['gols2']} {jogo['selecao2']}
             """)
             
-            novo_gols1 = input(f"Digite o número de gols do {jogo['selecao1']}: ")
+            novo_gols1 = input(f"Digite o número de gols de {jogo['selecao1']}: ")
             while (not novo_gols1.isdigit()):
                 print("\nERRO! O número de gols informado não é um número.")
                 id_partida = input(f"Por favor, digite uma quantidade de gols válida para {jogo['selecao1']}: ")
             
-            novo_gols2 = input(f"Digite o número de gols do {jogo['selecao2']}: ")
+            novo_gols2 = input(f"Digite o número de gols de {jogo['selecao2']}: ")
             while (not novo_gols2.isdigit()):
                 print("\nERRO! O número de gols informado não é um número.")
                 id_partida = input(f"Por favor, digite uma quantidade de gols válida para {jogo['selecao2']}: ")
@@ -143,14 +139,17 @@ def Exibir_Tutorial_B(apostador: str):
                 "selecao1": "Brasil", ----> Primeira Seleção
                 "selecao2": "Uruguai", ----> Segunda Seleção
                 "gols1": -1, ----> Gols da primeira seleção - Este é o campo que você deve modificar
-                "gols2": -1 ----> Gols da segunda seleção - Este é o campo que você deve modificar
+                "gols2": -1, ----> Gols da segunda seleção - Este é o campo que você deve modificar
+                "vencedor_penaltis": None (Este campo só aparece na fases 2 em diante)
             }
 
         + Insira ou modifique diretamente no arquivo seus palpites sobre os jogos. 
         + Essa inserção deve ser feita nos locais ao lado dos "gols1" e "gols2" (onde está -1).
-        + Números negativos serão considerados com palpites pendentes.
+           * Caso haja EMPATE nessa partida E esteja inserindo o resultado de uma partida da 2º Fase (16-avos de Final) ou em diante, você deve inserir no campo "vencedor_penaltis" o NOME DA SELEÇÃO VENCEDORA dentre a "selecao1" e "selecao2" da mesma forma como está escrita.
+           * Caso não escreva o nome corretamente, ou deixe o campo em nenhum valor (None), o sistema não irá gerar a próxima fase, ou mesmo não será capaz de calcular a pontuações dos jogadores corretamente.
+        + Números negativos serão considerados como palpites pendentes.
         + Respeite a estrutura original do JSON 
-        (NÃO ALETERE nomes de campos, vírgulas ou chaves, apenas os valores dos palpites em "gols1" e "gols2").
+        (NÃO ALETERE nomes de campos, vírgulas ou chaves).
             
         --> Verifique se os resultados foram colocados corretamente antes de finalizar.
 

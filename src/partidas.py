@@ -14,8 +14,6 @@ def Criar_Arquivo_Padrao(jogos: list):
         json.dump(jogos, arq, indent=4, ensure_ascii=False)
 
 
-
-
 def Encontrar_Jogo(jogos: list, id: str) -> dict:
     """Encontra um jogo específico pelo seu ID em uma lista de jogos.
     
@@ -225,6 +223,7 @@ def Obter_Vencedor(jogo: dict) -> str:
         return jogo["selecao2"]
     else:
         return jogo["vencedor_penaltis"]
+
 
 def Obter_Perdedor(jogo: dict) -> str:
     """Obtém o perdedor de um jogo.

@@ -1,5 +1,21 @@
-from src.partidas import Gerar_Primeira_Fase, Carregar_Selecoes, Encontrar_Jogo
-from src.apostador import Cadastrar_Apostador
+from src.partidas import (
+    Carregar_Selecoes,
+    Gerar_Primeira_Fase,
+    Gerar_Proxima_Fase,
+    Encontrar_Jogo,
+    )
+
+from src.apostador import (
+    Cadastrar_Apostador,
+    Completar_Palpites_Aleatoriamente,
+    
+
+    )
+
+
+from src.submenu_registrar_palpites import Cadastrar_Palpites
+
+
 from src.consulta import Listar_Calendario, jogos_por_grupo, jogos_por_fase, jogos_por_id, consulta_palpite
 def Consultar_Dados():
     print("\n******** Consulta de Dados ********")
@@ -56,25 +72,26 @@ def Menu_Principal():
         except:
             input('Erro ao Carregar as selecoes e gerar Fase, Pressione enter para continuar')
     if opcao == "2":
-       Cadastrar_Apostador()
-    if opcao == "3":
-        Registrar_Palpites()
-    if opcao == "4":
-        Completar_Palpites()
-    if opcao == "5":
-        Gerar_Fase()
-    if opcao == "6":
-        Cadastrar_Gabarito()
-    if opcao == "7":
-        Consultar_Pontuacao()
-    if opcao == "8":
-        Resultado_Final()
-    if opcao == "9":
-        Consultar_Dados()
-        return None
-    if opcao == "10": 
-        return None
-    Menu_Principal()
+       apostador = input("Insira o nome do novo apostador: ")
+       Cadastrar_Apostador(apostador)
+    # if opcao == "3":
+    #     Registrar_Palpites()
+    # if opcao == "4":
+    #     Completar_Palpites()
+    # if opcao == "5":
+    #     Gerar_Fase()
+    # if opcao == "6":
+    #     Cadastrar_Gabarito()
+    # if opcao == "7":
+    #     Consultar_Pontuacao()
+    # if opcao == "8":
+    #     Resultado_Final()
+    # if opcao == "9":
+    #     Consultar_Dados()
+    #     return None
+    # if opcao == "10": 
+    #     return None
+    # Menu_Principal()
     
 
 Menu_Principal()
