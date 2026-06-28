@@ -93,7 +93,7 @@ def Cadastrar_Apostador():
         
         arq.write('\n'+nome )
 
-    Atualizar_Arquivo_Palpites(nome)
+    Criar_Arquivo_Apostador(nome)
 
 
 def Carregar_Palpites(apostador: str) -> list:
