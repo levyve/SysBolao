@@ -15,7 +15,6 @@ def Criar_Arquivo_Apostador(apostador: str):
     with open(f'Archives/json/palpites_{apostador}.json', 'w', encoding='utf-8') as arq:
         json.dump(jogos, arq, indent=4, ensure_ascii=False)
 
-
 def Atualizar_Arquivo_Palpites(jogos: list, apostador: str):
     """Atualiza um arquivo de palpites de um apostador.
 

@@ -8,15 +8,16 @@ from src.partidas import (
 from src.apostador import (
     Cadastrar_Apostador,
     Completar_Palpites_Aleatoriamente,
-    
-
     )
-
-
+from src.consulta import (
+    Listar_Calendario,
+    jogos_por_grupo,
+    jogos_por_fase,
+    jogos_por_id,
+    consulta_palpite
+    )
 from src.submenu_registrar_palpites import Cadastrar_Palpites
 
-
-from src.consulta import Listar_Calendario, jogos_por_grupo, jogos_por_fase, jogos_por_id, consulta_palpite
 def Consultar_Dados():
     print("\n******** Consulta de Dados ********")
     print("1. Listar calendário completo de jogos")
