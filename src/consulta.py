@@ -9,9 +9,9 @@ def Listar_Calendario(jogos):
         gols1 = jogo["gols1"] if jogo["gols1"] != -1 else ""
         gols2 = jogo["gols2"] if jogo["gols2"] != -1 else ""
         if jogo['grupo'] != "none":
-            print(f"ID: {jogo['ID']} - Fase: {jogo['fase']} - Grupo: {jogo['grupo']} ")
+            print(f"ID: {jogo['id']} - Fase: {jogo['fase']} - Grupo: {jogo['grupo']} ")
         else:
-            print(f"ID: {jogo['ID']} - Fase: {jogo['fase']} ")    
+            print(f"ID: {jogo['id']} - Fase: {jogo['fase']} ")    
         print(f"\n  {jogo['selecao1']} {gols1} X {gols2} {jogo['selecao2']}\n")
 
 def jogos_por_fase(jogos):
@@ -30,17 +30,17 @@ def jogos_por_fase(jogos):
     print("5 -  Semifinais")
     print("6 -  Disputa de 3º lugar")
     print("7 -  final")
-    fase_escolhida = int(input("digite o numero da fase que você pretende checar: "))
-    fase_escolhida = fases[fase_escolhida - 1]
+    numero_fase = int(input("digite o numero da fase que você pretende checar: "))
+    fase_escolhida = fases[numero_fase - 1]
     print(f"           Fase: {fase_escolhida}    ")
     print("------------------------------------------")
     fase_gerada = False
     for jogo in jogos:
-        if jogo['fase'] == fase_escolhida:
+        if jogo['fase'] == numero_fase:
             fase_gerada = True
             gols1 = jogo["gols1"] if jogo["gols1"] != -1 else ""
             gols2 = jogo["gols2"] if jogo["gols2"] != -1 else ""
-            if jogo['grupo'] != "não":
+            if jogo['grupo'] != "None":
                 print(f"Grupo: {jogo['grupo']}\n ID do jogo: {jogo['id']}\n")
             else:
                 print(f"ID do jogo: {jogo['id']}\n")
@@ -66,7 +66,7 @@ def jogos_por_id(jogos):
     id_escolhido = input("digite o numero do id do jogo que você pretende checar: ")
     id_gerado = False
     for jogo in jogos:
-        if jogo['id'] == id_escolhido:
+        if jogo['id'] == int(id_escolhido):
             id_gerado = True
             gols1 = jogo["gols1"] if jogo["gols1"] != -1 else ""
             gols2 = jogo["gols2"] if jogo["gols2"] != -1 else ""            
@@ -82,7 +82,7 @@ def consulta_palpite():
     '''    
     nome = input("para ver seus paplpites insira o nome cadastrado no bolão:  ")
     cadastro = False
-    with open("apostadores.txt", "r", encoding="utf-8") as arquivo:
+    with open("Archives/txt/apostadores.txt", "r", encoding="utf-8") as arquivo:
         for linha in arquivo:
             nome_original = linha.strip()
             if nome == nome_original:
@@ -91,7 +91,7 @@ def consulta_palpite():
     if not cadastro:
         print("usuário não cadastrado") 
         return
-    nome_arquivo_json = f"palpites_{nome_original}.json"
+    nome_arquivo_json = f"Archives/json/palpites_{nome_original}.json"
     with open(nome_arquivo_json, "r", encoding="utf-8") as arquivo_json:
          palpites = json.load(arquivo_json)
     print(f"\n Palpites de {nome}:")
@@ -99,4 +99,3 @@ def consulta_palpite():
         gols1 = palpite["gols1"] if palpite["gols1"] != -1 else ""
         gols2 = palpite["gols2"] if palpite["gols2"] != -1 else ""
         print(f"{palpite['selecao1']} {gols1} X {gols2} {palpite['selecao2']}")
-                      #              

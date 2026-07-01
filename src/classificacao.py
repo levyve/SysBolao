@@ -121,7 +121,7 @@ def Calcular_Pontuacao_Apostador(apostador: str, jogos_gabarito: list) -> dict:
 
 
 def _Comparador_Classificacao(apostador1: dict, apostador2: dict) -> int:
-    """Compara dois apostadores segundo os critérios de desempate do bolão:
+    """Compara dois apostadores segundo os critérios de desempate:
     1. Pontos;
     2. Placares exatos;
     3. Placares parciais;
@@ -199,14 +199,14 @@ def Salvar_Classificacao_Final(classificacao: list):
     :type classificacao: list
     """
 
-    with open('resultado_bolao.txt', 'w', encoding='utf-8') as arq:
+    with open('Archives/txt/resultado_bolao.txt', 'w', encoding='utf-8') as arq:
         arq.write("******** Resultado Final do Bolão ********\n")
         arq.write(f"{'Posição':<10}{'Apostador':<15}{'Pontos':<8}{'Exatos':<8}{'Parciais':<10}{'Resultados':<12}{'Erros':<8}\n")
 
         for posicao, apostador in enumerate(classificacao, start=1):
             arq.write(f"{str(posicao) + 'º':<10}{apostador['apostador']:<15}{apostador['pontos']:<8}{apostador['exatos']:<8}{apostador['parciais']:<10}{apostador['resultados']:<12}{apostador['erros']:<8}\n")
 
-    print("\nResultado salvo com sucesso no arquivo 'resultado_bolao.txt'!")
+    print("\nResultado salvo com sucesso, Consulte no arquivo 'resultado_bolao.txt' na pasta arquivos/txt")
 
 
 def Resultado_Final_Bolao():
