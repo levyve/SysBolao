@@ -1,5 +1,13 @@
-from src.apostador import Carregar_Palpites, Atualizar_Palpites, Validar_Jogador
-from src.partidas import Encontrar_Jogo, Exibir_Jogo
+from src.apostador import (
+    Carregar_Palpites, 
+    Atualizar_Palpites, 
+    Validar_Jogador
+    )
+
+from src.partidas import (
+    Encontrar_Jogo, 
+    Exibir_Jogo
+    )
 
 def SubMenu_Interativo(apostador: str):
     """Submenu Interativo no qual o apostador pode listar jogos de seu bolão e alterar/cadastrar o placar de um jogo específico.

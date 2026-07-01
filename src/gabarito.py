@@ -1,5 +1,8 @@
 import json
-from partidas import Encontrar_Jogo, Exibir_Jogo
+from partidas import (
+    Encontrar_Jogo, 
+    Exibir_Jogo
+    )
 
 def Criar_Arquivo_Gabarito():
     """Cria um arquivo que conterá o gabarito oficial dos jogos.
