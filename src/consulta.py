@@ -129,9 +129,13 @@ def consulta_palpite_pendentes():
         gols1 = palpite["gols1"] if palpite["gols1"] != -1 else ""
         gols2 = palpite["gols2"] if palpite["gols2"] != -1 else ""
         if gols1 == "" or gols2 == "":
-            print(f"ID: {palpite['id']}")
-            print(f"{palpite['selecao1']} {gols1} X {gols2} {palpite['selecao2']}")
             palpites_faltam = True
+            if palpite["seleca1"] and palpite["selecao2"]:
+                print(f"ID: {palpite['id']}")
+                print(f"   {palpite['selecao1']} {gols1} X {gols2} {palpite['selecao2']}")
+            else:
+                print(f"ID: {palpite['id]']}")
+                print("   seleções ainda não definidas")    
     if not palpites_faltam:
         print("Todos os palpites estão preenchidos.")
 
