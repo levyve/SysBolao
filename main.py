@@ -2,21 +2,36 @@ from src.partidas import (
     Carregar_Selecoes,
     Gerar_Primeira_Fase,
     Gerar_Proxima_Fase,
-    Encontrar_Jogo,
     )
 
 from src.apostador import (
     Cadastrar_Apostador,
     Completar_Palpites_Aleatoriamente,
+    Validar_Jogador,
+    Carregar_Palpites,
+    Atualizar_Arquivo_Palpites,
     )
+
+from src.submenu_registrar_palpites import (
+    Cadastrar_Palpites
+    )
+from src.gabarito import (
+    Cadastrar_Gabarito,
+    Carregar_Gabarito,
+    Atualizar_Arquivo_Gabarito,
+    Visualizar_Gabarito_Oficial,
+    Visualizar_Resultados_Pendentes,
+    )
+
 from src.consulta import (
-    Listar_Calendario,
-    jogos_por_grupo,
-    jogos_por_fase,
-    jogos_por_id,
-    consulta_palpite
-    )
-from src.submenu_registrar_palpites import Cadastrar_Palpites
+    Listar_Calendario, 
+    jogos_por_grupo, 
+    jogos_por_fase, 
+    jogos_por_id, 
+    consulta_palpite)
+
+from src.classificacao import Resultado_Final_Bolao, Calcular_Pontuacao_Apostador
+
 
 def Consultar_Dados():
     print("\n******** Consulta de Dados ********")
@@ -29,26 +44,41 @@ def Consultar_Dados():
     print("7. Visualizar gabarito oficial")
     print("8. Visualizar resultados pendentes no gabarito")
     print("9. Voltar ao menu principal")
-    
+
     opcao = input("\nDigite a opção desejada: ")
-    if opcao == "1":
-        Listar_Calendario()
-    if opcao == "2":
-        jogos_por_fase()
-    if opcao == "3":
-        jogos_por_grupo()
-    if opcao == "4":
-        Encontrar_Jogo()
-    if opcao == "5":
-        consulta_palpite()
-    if opcao == "6":
-        Palpites_Pendentes()
-    if opcao == "7":
-        Gabarito_Oficial()
-    if opcao == "8":
-        Resultados_Pendentes()
+
     if opcao == "9":
         Menu_Principal()
+        return
+
+    try:
+        jogos_gabarito = Carregar_Gabarito()
+    except:
+        jogos_gabarito = None
+
+    if opcao in ["1", "2", "3", "4"] and jogos_gabarito is None:
+        print("ERRO: o gabarito oficial ainda não foi criado.")
+    elif opcao == "1":
+        Listar_Calendario(jogos_gabarito)
+    elif opcao == "2":
+        jogos_por_fase(jogos_gabarito)
+    elif opcao == "3":
+        jogos_por_grupo(jogos_gabarito)
+    elif opcao == "4":
+        jogos_por_id(jogos_gabarito)
+    elif opcao == "5":
+        consulta_palpite()
+    #elif opcao == "6":
+    elif opcao == "7":
+        Visualizar_Gabarito_Oficial()
+    elif opcao == "8":
+        Visualizar_Resultados_Pendentes()
+    else:
+        print("Pressionou o numero errado paezao.")
+
+    input("\nPressione enter para continuar...")
+    Consultar_Dados()
+
 
 def Menu_Principal():
     print("\n==========================================")
@@ -66,33 +96,87 @@ def Menu_Principal():
     print("10. Sair")
     print("==========================================")
     opcao = input("\nDigite a opção desejada: ")
+
     if opcao == "1":
         try:
-            Gerar_Primeira_Fase(Carregar_Selecoes('Archives/txt/selecoes.tx'))
-            input('Selecoes carregadas, Primeira Fase gerada. Pressione enter para continuar \n')
+            Carregar_Selecoes('Archives/txt/selecoes.txt')
+            input('Seleções carregadas, Primeira Fase gerada. Pressione enter para continuar \n')
         except:
-            input('Erro ao Carregar as selecoes e gerar Fase, Pressione enter para continuar')
-    if opcao == "2":
-       apostador = input("Insira o nome do novo apostador: ")
-       Cadastrar_Apostador(apostador)
-    # if opcao == "3":
-    #     Registrar_Palpites()
-    # if opcao == "4":
-    #     Completar_Palpites()
-    # if opcao == "5":
-    #     Gerar_Fase()
-    # if opcao == "6":
-    #     Cadastrar_Gabarito()
-    # if opcao == "7":
-    #     Consultar_Pontuacao()
-    # if opcao == "8":
-    #     Resultado_Final()
-    # if opcao == "9":
-    #     Consultar_Dados()
-    #     return None
-    # if opcao == "10": 
-    #     return None
-    # Menu_Principal()
-    
+            input('Erro ao carregar as seleções e gerar Fase. Pressione enter para continuar')
+
+    elif opcao == "2":
+        apostador = input("Insira o nome do novo apostador: ")
+        Cadastrar_Apostador(apostador)
+
+    elif opcao == "3":
+        modo = input("Escolha o modo de cadastro de palpites (A - Interativo / B - Lote): ")
+        Cadastrar_Palpites(modo)
+
+    elif opcao == "4":
+        apostador = input("Nome do apostador: ")
+        if Validar_Jogador(apostador):
+            jogos = Carregar_Palpites(apostador)
+            Completar_Palpites_Aleatoriamente(apostador, jogos)
+        else:
+            print("Erro! Apostador não cadastrado no sistema.")
+
+    elif opcao == "5":
+        try:
+            jogos_gabarito = Carregar_Gabarito()
+        except :
+            input("o gabarito oficial provavelmente nao foi criado. Pressione enter para continuar")
+        else:
+            novos_jogos = Gerar_Proxima_Fase(jogos_gabarito)
+            if novos_jogos is None:
+                input("Ainda há jogos pendentes. Pressione enter para continuar")
+            else:
+                Atualizar_Arquivo_Gabarito(jogos_gabarito + novos_jogos)
+                with open('Archives/txt/apostadores.txt', 'r', encoding='utf-8') as arq:
+                    apostadores = [linha.strip() for linha in arq if linha.strip() != ""]
+                for apostador in apostadores:
+                    try:
+                        jogos_apostador = Carregar_Palpites(apostador)
+                        Atualizar_Arquivo_Palpites(jogos_apostador + novos_jogos, apostador)
+                    except:
+                        pass
+                input("Próxima fase gerada com sucesso! Pressione enter para continuar")
+
+    elif opcao == "6":
+        Cadastrar_Gabarito()
+
+    elif opcao == "7":
+        apostador = input("Nome do apostador: ")
+        try:
+            jogos_gabarito = Carregar_Gabarito()
+        except :
+            input("ERRO: o gabarito oficial ainda não foi criado. Pressione enter para continuar")
+        else:
+            estatisticas = Calcular_Pontuacao_Apostador(apostador, jogos_gabarito)
+            print(f"""
+    Pontuação de {apostador}:
+    Pontos: {estatisticas['pontos']}
+    Exatos: {estatisticas['exatos']}
+    Parciais: {estatisticas['parciais']}
+    Resultados: {estatisticas['resultados']}
+    Erros: {estatisticas['erros']}
+            """)
+            input("Pressione enter para continuar")
+
+    elif opcao == "8":
+        Resultado_Final_Bolao()
+
+    elif opcao == "9":
+        Consultar_Dados()
+        return
+
+    elif opcao == "10":
+        print("Saindo do sistema. Até mais!")
+        return
+
+    else:
+        print("ERRO: a opção selecionada não existe.")
+
+    Menu_Principal()
+
 
 Menu_Principal()
