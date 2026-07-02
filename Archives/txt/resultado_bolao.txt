@@ -1,0 +1,6 @@
+******** Resultado Final do Bolão ********
+Posição   Apostador      Pontos  Exatos  Parciais  Resultados  Erros   
+1º        30             194     0       7         29          36      
+2º        Levy           183     2       4         27          39      
+3º        Duarte         179     2       2         29          39      
+4º        João Victor    0       0       0         0           72      

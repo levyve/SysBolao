@@ -7,12 +7,14 @@ PONTOS_EXATO = 10
 PONTOS_PARCIAL = 7
 PONTOS_RESULTADO = 5
 PONTOS_ERRO = 0
+PONTOS_SEM_PALPITE = 0
 
 MAPA_CATEGORIAS = {
     "exato": "exatos",
     "parcial": "parciais",
     "resultado": "resultados",
     "erro": "erros",
+    "sem_palpite": "sem_palpite",
 }
 
 def Obter_Resultado(gols1: int, gols2: int) -> int:
@@ -53,7 +55,7 @@ def Classificar_Palpite(palpite: dict, jogo_gabarito: dict) -> tuple:
     gabarito_gols1, gabarito_gols2 = jogo_gabarito['gols1'], jogo_gabarito['gols2']
 
     if palpite_gols1 == -1 or palpite_gols2 == -1:
-        return ("erro", PONTOS_ERRO)
+        return ("sem_palpite", PONTOS_SEM_PALPITE)
 
     if palpite_gols1 == gabarito_gols1 and palpite_gols2 == gabarito_gols2:
         return ("exato", PONTOS_EXATO)
@@ -93,6 +95,7 @@ def Calcular_Pontuacao_Apostador(apostador: str, jogos_gabarito: list) -> dict:
         "parciais": 0,
         "resultados": 0,
         "erros": 0,
+        "sem_palpite": 0,
     }
 
     try:
@@ -109,7 +112,9 @@ def Calcular_Pontuacao_Apostador(apostador: str, jogos_gabarito: list) -> dict:
             palpite = next((p for p in palpites if p['id'] == jogo_gabarito['id']), None)
 
         if palpite is None:
-            categoria, pontos = "erro", PONTOS_ERRO
+            categoria, pontos = "sem_palpite", PONTOS_SEM_PALPITE
+        elif palpite['gols1'] == -1 or palpite['gols2'] == -1:
+            categoria, pontos = "sem_palpite", PONTOS_SEM_PALPITE    
         else:
             categoria, pontos = Classificar_Palpite(palpite, jogo_gabarito)
 
@@ -120,7 +125,7 @@ def Calcular_Pontuacao_Apostador(apostador: str, jogos_gabarito: list) -> dict:
 
 
 def _Comparador_Classificacao(apostador1: dict, apostador2: dict) -> int:
-    """Compara dois apostadores segundo os critérios de desempate do bolão:
+    """Compara dois apostadores segundo os critérios de desempate:
     1. Pontos;
     2. Placares exatos;
     3. Placares parciais;
@@ -198,14 +203,14 @@ def Salvar_Classificacao_Final(classificacao: list):
     :type classificacao: list
     """
 
-    with open('resultado_bolao.txt', 'w', encoding='utf-8') as arq:
+    with open('Archives/txt/resultado_bolao.txt', 'w', encoding='utf-8') as arq:
         arq.write("******** Resultado Final do Bolão ********\n")
         arq.write(f"{'Posição':<10}{'Apostador':<15}{'Pontos':<8}{'Exatos':<8}{'Parciais':<10}{'Resultados':<12}{'Erros':<8}\n")
 
         for posicao, apostador in enumerate(classificacao, start=1):
             arq.write(f"{str(posicao) + 'º':<10}{apostador['apostador']:<15}{apostador['pontos']:<8}{apostador['exatos']:<8}{apostador['parciais']:<10}{apostador['resultados']:<12}{apostador['erros']:<8}\n")
 
-    print("\nResultado salvo com sucesso no arquivo 'resultado_bolao.txt'!")
+    print("\nResultado salvo com sucesso, Consulte no arquivo 'resultado_bolao.txt' na pasta arquivos/txt")
 
 
 def Resultado_Final_Bolao():

@@ -3,9 +3,8 @@ from src.apostador import (
     Atualizar_Palpites, 
     Validar_Jogador
     )
-
-from src.partidas import (
-    Encontrar_Jogo, 
+from src.partidas import ( 
+    Encontrar_Jogo,
     Exibir_Jogo
     )
 
