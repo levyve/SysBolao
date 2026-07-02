@@ -119,23 +119,25 @@ def Menu_Principal():
         elif opcao == "6":
             Cadastrar_Gabarito()
 
-        elif opcao == "7":
-            apostador = input("Nome do apostador: ")
-            try:
-                jogos_gabarito = Carregar_Gabarito()
-            except :
-                input("ERRO: o gabarito oficial ainda não foi criado. Pressione enter para continuar")
-            else:
-                estatisticas = Calcular_Pontuacao_Apostador(apostador, jogos_gabarito)
-                print(f"""
-        Pontuação de {apostador}:
-        Pontos: {estatisticas['pontos']}
-        Exatos: {estatisticas['exatos']}
-        Parciais: {estatisticas['parciais']}
-        Resultados: {estatisticas['resultados']}
-        Erros: {estatisticas['erros']}
-                """)
-                input("Pressione enter para continuar")
+    elif opcao == "7":
+        apostador = input("Nome do apostador: ")
+        try:
+            jogos_gabarito = Carregar_Gabarito()
+        except :
+            input("ERRO: o gabarito oficial ainda não foi criado. Pressione enter para continuar")
+        else:
+            estatisticas = Calcular_Pontuacao_Apostador(apostador, jogos_gabarito)
+            print(f"""
+    Pontuação de {apostador}:
+    Pontos: {estatisticas['pontos']}
+    Exatos: {estatisticas['exatos']}
+    Parciais: {estatisticas['parciais']}
+    Resultados: {estatisticas['resultados']}
+    Erros: {estatisticas['erros']}
+            """)
+            expandir = input(" digite 1 para voltar ao menu \ndigte 2 para ver a comparação de todos os jogos do bolão com os resultados oficiais")
+            if expandir == "2":
+                relatorio_completo(apostador, jogos_gabarito)
 
         elif opcao == "8":
             Resultado_Final_Bolao()
