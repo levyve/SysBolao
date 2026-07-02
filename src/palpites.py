@@ -1,19 +1,20 @@
-from src.utilitários import (
-    Encontrar_Jogo,
+from armazenamento.manipulacao_arquivos_apostador import Atualizar_Arquivo_Palpites
+from utilitários import (
+    Validar_Apostador,
     Exibir_Jogo,
-    Existe_Gabarito
-)
-from armazenamento.manipulacao_arquivo_gabarito import (
-    Criar_Arquivo_Gabarito,
-    Atualizar_Arquivo_Gabarito,
-    Carregar_Gabarito,
-)
+    Encontrar_Jogo
+    ) 
+from interface.menu_cadastro_palpites import SubMenu_Interativo
+import random
 
 
-def Atualizar_Partida_Gabarito(jogos: list, id: str, jogo: dict, gols1: str, gols2: str):
-    """Atualiza o resultado de um jogo específico no gabarito oficial.
+def Atualizar_Palpites(apostador: str, jogos: list, jogo: dict, id: str, gols1: str, gols2: str):
+    """Atualiza o palpite de um dados apostador em um jogo específico.
+
+    :param apostador: nome do apostador.
+    :type apostador: str
     
-    :param jogos: lista contendo todos os jogos do gabarito oficial.
+    :param jogos: lista contendo todos os jogos, com ou sem palpites, do apostdor.
     :type jogos: list
     
     :param jogo: dicionário que representa o jogo.
@@ -54,24 +55,49 @@ def Atualizar_Partida_Gabarito(jogos: list, id: str, jogo: dict, gols1: str, gol
         "gols2": int(gols2),
         "vencedor_penaltis": None
         }
-        
 
     jogos.insert(jogos.index(jogo), partida)
     jogos.pop(jogos.index(jogo))
 
-    Atualizar_Arquivo_Gabarito(jogos)
+    Atualizar_Arquivo_Palpites(jogos, apostador)
 
 
-def Exibir_Tutorial_Cadastro_Lote():
-    """Exibe um tutorial sobre como fazer o cadastro ou alteração de palpite(s) em Lote.
-    """
-     
-    print(f"""
+def Completar_Palpites_Aleatoriamente(apostador: str, jogos: list):
+    
+    qtd_preenchidos = 0
+    qtd_gols = [0, 1, 2, 3, 4, 5, 6, 7]
+    pesos = [60, 50, 40, 30, 25, 20, 15, 10]
+
+    for jogo in jogos:
+        if (jogo['gols1'] == -1 or jogo['gols2'] == -1):
+            gols1 = random.choices(qtd_gols, weights=pesos, k=1)[0]
+            gols2 = random.choices(qtd_gols, weights=pesos, k=1)[0]
+
+
+            if (jogo['fase'] != 1):  # fases eliminatórias não permitem empate
+                while (gols1 == gols2):
+                    gols1 = random.choices(qtd_gols, weights=pesos, k=1)[0]
+                    gols2 = random.choices(qtd_gols, weights=pesos, k=1)[0]
+
+
+            Atualizar_Palpites(apostador, jogos, jogo, str(jogo['id']), gols1, gols2)
+            qtd_preenchidos += 1
+
+    print(f"\n{qtd_preenchidos} palpite(s) pendente(s) preenchido(s) aleatoriamente para {apostador}!")
+
+
+def Exibir_Tutorial_Cadastro_Lote(apostador: str):
+     """Exibe um tutorial sobre como fazer o cadastro ou alteração de palpite(s) em Lote.
+
+     :param apostador: nome do apostador que deseja alterar ou cadastrar palpite(s)
+     :type apostador: str
+     """
+     print(f"""
         ===========================================
-               COMO USAR O CADASTRO EM LOTE
+            COMO USAR O CADASTRO EM LOTE
         ===========================================
 
-        Com essa opção, você pode editar o gabarito oficial que contém os dados de cada partida, 
+        Com essa opção, você pode editar seus palpites diretamente no SEU arquivo de dados, 
         sem precisar preenchê-los um a um pela interface do programa.
 
         O sistema, automaticamente, já parou a execução. 
@@ -81,8 +107,8 @@ def Exibir_Tutorial_Cadastro_Lote():
         -------------------------------------PASSO A PASSO-------------------------------------
 
         ----> Passo 1: Localize o arquivo JSON
-        + Encontre o arquivo JSON do gabarito, ele estará no caminho "Archives/json/" com o nome "gabarito.json". 
-        + Este é arquivo que contém os dados oficiais de todos os jogos. 
+        + Encontre o seu arquivo JSON, ele estará no caminho "Archives/json/" com o nome "palpites_{apostador}.json". 
+        + Este é arquivo que contém os dados de todos os jogos, com ou sem seus palpites. 
         + DECORE, ou ANOTE O CAMINHO, pois você precisará devolver o arquivo alterado EXATAMENTE nesse mesmo lugar depois de editá-lo.
 
         ----> Passo 2: Abra o arquivo em um editor de texto
@@ -90,7 +116,7 @@ def Exibir_Tutorial_Cadastro_Lote():
         + EVITE usar editores que possam alterar a formatação do JSON (como o Word).
         """)
      
-    print("""
+     print("""
         ----> Passo 3: Edite os resultados dos jogos
         + A estrutura de cada partida/jogo será como a seguinte:
             {
@@ -100,19 +126,19 @@ def Exibir_Tutorial_Cadastro_Lote():
                 "selecao1": "Brasil", ----> Primeira Seleção
                 "selecao2": "Uruguai", ----> Segunda Seleção
                 "gols1": -1, ----> Gols da primeira seleção - Este é o campo que você deve modificar
-                "gols2": -1 ----> Gols da segunda seleção - Este é o campo que você deve modificar
+                "gols2": -1, ----> Gols da segunda seleção - Este é o campo que você deve modificar
                 "vencedor_penaltis": None (Este campo só aparece na fases 2 em diante)
             }
 
         + Insira ou modifique diretamente no arquivo seus palpites sobre os jogos. 
         + Essa inserção deve ser feita nos locais ao lado dos "gols1" e "gols2" (onde está -1).
-           * Caso haja empate nessa partida E esteja inserindo o resultado de uma partida da 2º Fase (16-avos de Final) ou em diante, você deve inserir no campo "vencedor_penaltis" o NOME DA SELEÇÃO VENCEDORA dentre a "selecao1" e "selecao2" da mesma forma como está escrita.
+           * Caso haja EMPATE nessa partida E esteja inserindo o resultado de uma partida da 2º Fase (16-avos de Final) ou em diante, você deve inserir no campo "vencedor_penaltis" o NOME DA SELEÇÃO VENCEDORA dentre a "selecao1" e "selecao2" da mesma forma como está escrita.
            * Caso não escreva o nome corretamente, ou deixe o campo em nenhum valor (None), o sistema não irá gerar a próxima fase, ou mesmo não será capaz de calcular a pontuações dos jogadores corretamente.
-        + Números negativos serão considerados como resultados pendentes.
+        + Números negativos serão considerados como palpites pendentes.
         + Respeite a estrutura original do JSON 
         (NÃO ALETERE nomes de campos, vírgulas ou chaves).
             
-        --> Verifique se os resultados foram colocados CORRETAMENTE antes de finalizar.
+        --> Verifique se os resultados foram colocados corretamente antes de finalizar.
 
         ----------------------------------------------------------------------------------------------------------
         ATENÇÃO: qualquer erro de formatação (vírgula faltando, chave não fechada, etc.) 
@@ -120,9 +146,9 @@ def Exibir_Tutorial_Cadastro_Lote():
         ----------------------------------------------------------------------------------------------------------
         """)
 
-    print(f"""
+     print(f"""
         ----> Passo 5: Salve o arquivo
-        + Salve as alterações no MESMO LOCAL e com o MESMO NOME (gabarito.json) 
+        + Salve as alterações no MESMO LOCAL e com o MESMO NOME (palpites_{apostador}.json) 
         em que o arquivo estava originalmente (no caminho "Archives/json/").
 
         ----> Passo 6: Inicie o programa novamente
@@ -131,29 +157,64 @@ def Exibir_Tutorial_Cadastro_Lote():
         ele identificará automaticamente o arquivo modificado e carregará os palpites atualizados.
         """) 
      
-    print("^ LEIA O TUTORIAL ACIMA PARA SABER COMO FAZER UM CADASTRO EM LOTE ^\n")
-    input("Pressione Enter para continuar")
+     print("^ LEIA O TUTORIAL ACIMA PARA SABER COMO FAZER UM CADASTRO EM LOTE ^\n")
 
 
-def Cadastrar_Placar_Gabarito(jogos_gabarito: list):
+def Listar_Bolao_Completo_Apostador(jogos: list):
+    
+            print("""
+            =========================================
+                     LISTA DE TODOS OS JOGOS      
+            =========================================
+            """)
 
+            for jogo in jogos:
+                Exibir_Jogo(jogo)
+
+                print(f"""
+    Seu palpite:
+    {jogo['selecao1']} {jogo['gols1']} x {jogo['gols2']} {jogo['selecao2']}""")
+                print("""
+    -----------------------------------------""")
+
+
+def Listar_Jogos_Pendentes_Apostador(jogos: list):
+
+    print("""
+    ========================================
+                JOGOS SEM PALPITES      
+    ========================================
+    """)
+    
+    for jogo in jogos:
+        if (jogo['gols1'] <= -1 or jogo['gols2'] <= -1):
+            Exibir_Jogo(jogo)
+
+            print(f"""
+    Palpite:
+    {jogo['selecao1']} {jogo['gols1']} x {jogo['gols2']} {jogo['selecao2']}""")  
+            print("""
+    -----------------------------------------""")
+
+
+def Cadastrar_Placar(jogos: list, apostador: str):
+        
     id_partida = input("Digite o ID do jogo: ")
     while (not id_partida.isdigit()):
-        print("ERRO: O ID informado não é um ID válido.")
+        print("ERRO! O ID informado não é um ID válido.")
         id_partida = input("Por favor, digite um ID válido (Número): ")
-
-    jogo = Encontrar_Jogo(jogos_gabarito, id_partida)
+    
+    jogo = Encontrar_Jogo(jogos, id_partida)
     if (jogo == None):
         print("ERRO: Não há um jogo com o ID informado.")
         return False
-        
+    
     print("Jogo encontrado:")
     Exibir_Jogo(jogo)
     print(f"""
-Resultado:
-{jogo['selecao1']} {jogo['gols1']} x {jogo['gols2']} {jogo['selecao2']}""")     
-    print("""
------------------------------------------""")
+Palpite atual:
+{jogo['selecao1']} {jogo['gols1']} x {jogo['gols2']} {jogo['selecao2']}
+    """)
     
     novo_gols1 = input(f"Digite o número de gols de {jogo['selecao1']}: ")
     while (not novo_gols1.isdigit()):
@@ -165,88 +226,7 @@ Resultado:
         print("\nERRO! O número de gols informado não é um número.")
         id_partida = input(f"Por favor, digite uma quantidade de gols válida para {jogo['selecao2']}: ")
 
-    Atualizar_Partida_Gabarito(jogos_gabarito, id_partida, jogo, novo_gols1, novo_gols2)
+    Atualizar_Palpites(apostador, jogos, id_partida, novo_gols1, novo_gols2)
 
-    print("\nResultado cadastrado com sucesso!")
+    print("\nPalpite cadastrado com sucesso!")
     print(f"\n{jogo['selecao1']} {novo_gols1} x {novo_gols2} {jogo['selecao2']}")
-
-
-def Cadastrar_Gabarito():
-
-    if (not Existe_Gabarito()):
-        Criar_Arquivo_Gabarito()
-
-
-    while (True):
-        print(f"""
-        ******** Cadastrar Gabarito ********
-        1. Cadastro Interativo
-        2. Cadastro em Lote
-        3. Voltar ao menu principal
-        """)
-
-        opcao =  input("Digite a opção desejada: ")
-
-        if opcao not in ["1", "2", "3"]:
-            print("ERRO: a opção selecionada não existe.")
-            continue
-
-        jogos_gabarito = Carregar_Gabarito()
-        if (opcao == "1"):
-            Cadastrar_Placar_Gabarito(jogos_gabarito)
-
-        elif (opcao == "2"):
-            Exibir_Tutorial_Cadastro_Lote()
-            break
-
-        else:
-            break
-
-
-def Visualizar_Gabarito_Oficial():
-
-    if (Existe_Gabarito()):
-
-        jogos_gabarito = Carregar_Gabarito()
-
-        print("""
-        =======================================
-               GABARITO OFICIAL COMPLETO      
-        =======================================
-        """)
-
-        for jogo in jogos_gabarito:
-            Exibir_Jogo(jogo)
-            print(f"""
-    Resultado:
-    {jogo['selecao1']} {jogo['gols1']} x {jogo['gols2']} {jogo['selecao2']}""")     
-            print("""
-    -----------------------------------------""")
-            
-    else:
-        print("ERRO: o arquivo JSON do gabarito oficial ainda não foi criado!\nPara criar o arquivo do gabarito oficial, vá em 'Cadastrar Gabarito Ofical', no meu principal.")
-    
-
-def Visualizar_Resultados_Pendentes():
-
-    if (Existe_Gabarito()):
-        
-        jogos_gabarito = Carregar_Gabarito()
-
-        print("""
-        ============================================
-          RESULTADOS PENDENTES NO GABARITO OFICIAL       
-        ============================================
-        """)
-
-        for jogo in jogos_gabarito:
-            if (jogo["gols1"] <= -1 or jogo["gols2"] <= -1):
-                Exibir_Jogo(jogo)
-                print(f"""
-    Resultado (Pendente):
-    {jogo['selecao1']} {jogo['gols1']} x {jogo['gols2']} {jogo['selecao2']}""")     
-                print("""
-    -----------------------------------------""")
-
-    else:
-        print("ERRO: o arquivo JSON do gabarito oficial ainda não foi criado!\nPara criar o arquivo do gabarito oficial, vá em 'Cadastrar Gabarito Ofical', no meu principal.")

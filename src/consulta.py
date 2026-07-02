@@ -1,5 +1,6 @@
 import json
 #importado para consultar gabarito e palpites
+
 def Listar_Calendario(jogos):
     '''mostra todas as partidas realizadas e as proximas!'''
 

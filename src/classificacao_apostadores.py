@@ -1,6 +1,6 @@
 from functools import cmp_to_key
 from src.gabarito import Carregar_Gabarito
-from src.apostador import Carregar_Palpites
+from armazenamento.manipulacao_arquivos_apostador import Carregar_Palpites
 
 
 PONTOS_EXATO = 10
