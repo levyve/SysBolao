@@ -28,14 +28,16 @@ from src.consulta import (
     jogos_por_grupo, 
     jogos_por_fase, 
     jogos_por_id, 
-    consulta_palpite)
+    consulta_palpite,
+    consulta_palpite_pendentes,
+    )
 
 from src.classificacao import (
     Resultado_Final_Bolao,
     Calcular_Pontuacao_Apostador,
-    relatorio_completo
+    relatorio_completo,
 
-)
+    )
 
 
 def Consultar_Dados():
@@ -73,7 +75,8 @@ def Consultar_Dados():
         jogos_por_id(jogos_gabarito)
     elif opcao == "5":
         consulta_palpite()
-    #elif opcao == "6":
+    elif opcao == "6":
+        consulta_palpite_pendentes()
     elif opcao == "7":
         Visualizar_Gabarito_Oficial(jogos_gabarito)
     elif opcao == "8":
