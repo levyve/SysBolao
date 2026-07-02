@@ -135,7 +135,7 @@ def consulta_palpite_pendentes():
     if not palpites_faltam:
         print("Todos os palpites estão preenchidos.")
 
-def consulta_gabarito_oficial(jogos):
+def Visualizar_Gabarito_Oficial(jogos):
     '''função mostra o gabarito oficial, os jogos que já ocorreram'''
 
     print("\n==========================================") 
@@ -151,11 +151,11 @@ def consulta_gabarito_oficial(jogos):
                 print(f"ID: {jogo['id']} - Fase: {jogo['fase']} ")    
             print(f"\n  {jogo['selecao1']} {gols1} X {gols2} {jogo['selecao2']}\n")
 
-def consulta_gabarito_pendente(jogos):            
+def Visualizar_Resultados_Pendentes(jogos):            
     '''função demonstra os jogos pendentes'''
 
     print("\n==========================================") 
-    print("          GABARITO PENDENTE!           ")
+    print("          RESULTADOS PENDENTES!           ")
     print("==========================================")
     gabarito_faltam = False
     for jogo in jogos:

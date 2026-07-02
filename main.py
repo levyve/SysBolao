@@ -70,9 +70,9 @@ def Consultar_Dados():
         consulta_palpite()
     #elif opcao == "6":
     elif opcao == "7":
-        Visualizar_Gabarito_Oficial()
+        Visualizar_Gabarito_Oficial(jogos_gabarito)
     elif opcao == "8":
-        Visualizar_Resultados_Pendentes()
+        Visualizar_Resultados_Pendentes(jogos_gabarito)
     else:
         print("Pressionou o numero errado paezao.")
 
