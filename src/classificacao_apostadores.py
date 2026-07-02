@@ -232,7 +232,7 @@ def Resultado_Final_Bolao():
     if resposta == 's':
         Salvar_Classificacao_Final(classificacao)
 
-def relatorio_completo(apostador, jogos_gabarito):
+def Relatorio_Completo(apostador, jogos_gabarito):
     '''cria um relatorio completo, mostra todos os pontos do apostador, todos os seus seus palpites divididos em categorias, o gabarito completo e os pontos totais acumulados
     '''
     ID_CATEGORIAS = {

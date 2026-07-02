@@ -24,12 +24,17 @@ from src.palpites import (
     Exibir_Tutorial_Cadastro_Lote
     )
 
-from src.utilitários import Validar_Apostador
+from src.utilitários import (
+    Validar_Apostador, 
+    Existe_Gabarito
+    )
+
 from src.gabarito import Cadastrar_Gabarito
 
 from classificacao_apostadores import (
     Resultado_Final_Bolao,
-    Calcular_Pontuacao_Apostador
+    Calcular_Pontuacao_Apostador,
+    Relatorio_Completo
     )
 
 from interface.menu_cadastro_palpites import SubMenu_Interativo
@@ -119,36 +124,35 @@ def Menu_Principal():
         elif opcao == "6":
             Cadastrar_Gabarito()
 
-    elif opcao == "7":
-        apostador = input("Nome do apostador: ")
-        try:
-            jogos_gabarito = Carregar_Gabarito()
-        except :
-            input("ERRO: o gabarito oficial ainda não foi criado. Pressione enter para continuar")
-        else:
+        elif opcao == "7":
+            if (not Existe_Gabarito):
+                print("ERRO: o gabarito oficial ainda não foi criado. Pressione enter para continuar")
+                continue
+        
+            apostador = input("Nome do apostador: ")
             estatisticas = Calcular_Pontuacao_Apostador(apostador, jogos_gabarito)
             print(f"""
-    Pontuação de {apostador}:
-    Pontos: {estatisticas['pontos']}
-    Exatos: {estatisticas['exatos']}
-    Parciais: {estatisticas['parciais']}
-    Resultados: {estatisticas['resultados']}
-    Erros: {estatisticas['erros']}
-            """)
+        Pontuação de {apostador}:
+        Pontos: {estatisticas['pontos']}
+        Exatos: {estatisticas['exatos']}
+        Parciais: {estatisticas['parciais']}
+        Resultados: {estatisticas['resultados']}
+        Erros: {estatisticas['erros']}
+                """)
             expandir = input(" digite 1 para voltar ao menu \ndigte 2 para ver a comparação de todos os jogos do bolão com os resultados oficiais")
             if expandir == "2":
-                relatorio_completo(apostador, jogos_gabarito)
+                Relatorio_Completo(apostador, jogos_gabarito)
 
         elif opcao == "8":
             Resultado_Final_Bolao()
 
         elif opcao == "9":
             Consultar_Dados()
-            return
+            continue
 
         elif opcao == "10":
             print("Saindo do sistema. Até mais!")
-            return
+            break
 
         else:
             print("ERRO: a opção selecionada não existe.")
