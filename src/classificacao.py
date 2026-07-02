@@ -8,12 +8,14 @@ PONTOS_EXATO = 10
 PONTOS_PARCIAL = 7
 PONTOS_RESULTADO = 5
 PONTOS_ERRO = 0
+PONTOS_SEM_PALPITE = 0
 
 MAPA_CATEGORIAS = {
     "exato": "exatos",
     "parcial": "parciais",
     "resultado": "resultados",
     "erro": "erros",
+    "sem_palpite": "sem_palpite",
 }
 
 def Obter_Resultado(gols1: int, gols2: int) -> int:
@@ -54,7 +56,7 @@ def Classificar_Palpite(palpite: dict, jogo_gabarito: dict) -> tuple:
     gabarito_gols1, gabarito_gols2 = jogo_gabarito['gols1'], jogo_gabarito['gols2']
 
     if palpite_gols1 == -1 or palpite_gols2 == -1:
-        return ("erro", PONTOS_ERRO)
+        return ("sem_palpite", PONTOS_SEM_PALPITE)
 
     if palpite_gols1 == gabarito_gols1 and palpite_gols2 == gabarito_gols2:
         return ("exato", PONTOS_EXATO)
@@ -94,6 +96,7 @@ def Calcular_Pontuacao_Apostador(apostador: str, jogos_gabarito: list) -> dict:
         "parciais": 0,
         "resultados": 0,
         "erros": 0,
+        "sem_palpite": 0,
     }
 
     try:
@@ -110,7 +113,9 @@ def Calcular_Pontuacao_Apostador(apostador: str, jogos_gabarito: list) -> dict:
             palpite = next((p for p in palpites if p['id'] == jogo_gabarito['id']), None)
 
         if palpite is None:
-            categoria, pontos = "erro", PONTOS_ERRO
+            categoria, pontos = "sem_palpite", PONTOS_SEM_PALPITE
+        elif palpite['gols1'] == -1 or palpite['gols2'] == -1:
+            categoria, pontos = "sem_palpite", PONTOS_SEM_PALPITE    
         else:
             categoria, pontos = Classificar_Palpite(palpite, jogo_gabarito)
 
