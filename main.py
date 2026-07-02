@@ -30,7 +30,12 @@ from src.consulta import (
     jogos_por_id, 
     consulta_palpite)
 
-from src.classificacao import Resultado_Final_Bolao, Calcular_Pontuacao_Apostador
+from src.classificacao import (
+    Resultado_Final_Bolao,
+    Calcular_Pontuacao_Apostador,
+    relatorio_completo
+
+)
 
 
 def Consultar_Dados():
@@ -160,7 +165,9 @@ def Menu_Principal():
     Resultados: {estatisticas['resultados']}
     Erros: {estatisticas['erros']}
             """)
-            input("Pressione enter para continuar")
+            expandir = input(" digite 1 para voltar ao menu \ndigte 2 para ver a comparação de todos os jogos do bolão com os resultados oficiais")
+            if expandir == "2":
+                relatorio_completo(apostador, jogos_gabarito)
 
     elif opcao == "8":
         Resultado_Final_Bolao()

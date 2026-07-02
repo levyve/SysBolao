@@ -1,4 +1,6 @@
-from functools import cmp_to_key
+from functools import cmp_to_key 
+import json
+
 from src.gabarito import Carregar_Gabarito
 from src.apostador import Carregar_Palpites
 
@@ -229,3 +231,100 @@ def Resultado_Final_Bolao():
     resposta = input("\nDeseja salvar o resultado em arquivo? (s/n): ").strip().lower()
     if resposta == 's':
         Salvar_Classificacao_Final(classificacao)
+
+def relatorio_completo(apostador, jogos_gabarito):
+    '''cria um relatorio completo, mostra todos os pontos do apostador, todos os seus seus palpites divididos em categorias, o gabarito completo e os pontos totais acumulados
+    '''
+    ID_CATEGORIAS = {
+    "exato": [],
+    "parcial": [],
+    "resultado": [],
+    "erro": [],
+    "sem_palpite": [],
+    }
+    nome_arquivo_json = f"Archives/json/palpites_{apostador}.json"
+    with open(nome_arquivo_json, "r", encoding="utf-8") as arquivo:
+        palpites = json.load(arquivo)
+    for jogo in jogos_gabarito:
+        if jogo['gols1'] == -1 or jogo['gols2'] == -1:
+            continue
+        palpite = None
+        for palpite_jogo in palpites:
+            if palpite_jogo['id'] == jogo['id']:
+                palpite = palpite_jogo
+        if palpite is None:
+            ID_CATEGORIAS['sem_palpite'].append(jogo)
+        elif palpite['gols1'] == -1 or palpite['gols2'] == -1:
+            ID_CATEGORIAS['sem_palpite'].append(jogo)
+        else:
+            categoria, descarte = Classificar_Palpite(palpite, jogo)
+            ID_CATEGORIAS[categoria].append({"jogo": jogo, "palpite": palpite})
+
+    pontos_exatos = len(ID_CATEGORIAS["exato"]) * PONTOS_EXATO
+    pontos_parciais = len(ID_CATEGORIAS["parcial"]) * PONTOS_PARCIAL
+    pontos_resultados = len(ID_CATEGORIAS["resultado"]) * PONTOS_RESULTADO
+
+    print(f"\nPLACARES EXATOS ({pontos_exatos} pontos)")
+    print("========================================")
+    for item in ID_CATEGORIAS["exato"]:
+        jogo = item["jogo"]
+        palpite = item["palpite"]                        
+        print(f"\nID do Jogo: {jogo['id']}")
+        print(f"{jogo['selecao1']} {jogo['gols1']} x {jogo['gols2']} {jogo['selecao2']}")
+        print(f"\nGabarito: {jogo['selecao1']} {jogo['gols1']} x {jogo['gols2']} {jogo['selecao2']}")
+        print(f"Palpite:  {palpite['selecao1']} {palpite['gols1']} x {palpite['gols2']} {palpite['selecao2']}")
+        print("----------------------------------------")
+    
+    print(f"\nPLACARES PARCIAIS ({pontos_parciais} pontos)")
+    print("========================================")
+    for item in ID_CATEGORIAS["parcial"]:
+        jogo = item["jogo"]
+        palpite = item["palpite"]
+        print(f"\nID do Jogo: {jogo['id']}")
+        print(f"{jogo['selecao1']} {jogo['gols1']} x {jogo['gols2']} {jogo['selecao2']}")
+        print(f"\nGabarito: {jogo['selecao1']} {jogo['gols1']} x {jogo['gols2']} {jogo['selecao2']}")
+        print(f"Palpite:  {palpite['selecao1']} {palpite['gols1']} x {palpite['gols2']} {palpite['selecao2']}")
+        print("----------------------------------------")
+    
+    print(f"\nRESULTADOS CORRETOS ({pontos_resultados} pontos)")    
+    print("========================================")
+    for item in ID_CATEGORIAS["resultado"]:
+        jogo = item["jogo"]
+        palpite = item["palpite"]
+        print(f"\n ID do Jogo: {jogo['id']}")
+        print(f"\nJogo {jogo['id']}")
+        print(f"{jogo['selecao1']} {jogo['gols1']} x {jogo['gols2']} {jogo['selecao2']}")
+        print(f"\nGabarito: {jogo['selecao1']} {jogo['gols1']} x {jogo['gols2']} {jogo['selecao2']}")
+        print(f"Palpite:  {palpite['selecao1']} {palpite['gols1']} x {palpite['gols2']} {palpite['selecao2']}")
+        print("----------------------------------------")
+    
+    print(f"\nERROS (0 pontos)")
+    print("========================================")
+    for item in ID_CATEGORIAS["erro"]:
+        jogo = item["jogo"]
+        palpite = item["palpite"]
+        print(f"\nJogo {jogo['id']}")
+        print(f"{jogo['selecao1']} {jogo['gols1']} x {jogo['gols2']} {jogo['selecao2']}")
+        print(f"\nGabarito: {jogo['selecao1']} {jogo['gols1']} x {jogo['gols2']} {jogo['selecao2']}")
+        print(f"Palpite:  {palpite['selecao1']} {palpite['gols1']} x {palpite['gols2']} {palpite['selecao2']}")
+        print("----------------------------------------")
+    
+    print(f"\n SEM PALPITE")
+    print("========================================")
+    for jogo in ID_CATEGORIAS["sem_palpite"]:
+        print(f"\n ID do Jogo: {jogo['id']}")
+        print(f"{jogo['selecao1']} x {jogo['selecao2']}")
+        print(f"\nGabarito: {jogo['selecao1']} {jogo['gols1']} x {jogo['gols2']} {jogo['selecao2']}")
+        print("Palpite não informado")
+        print("----------------------------------------")
+        
+    print("\n========================================")
+    print("TOTAL GERAL")
+    print("========================================")
+    print(f"Placares Exatos:     {len(ID_CATEGORIAS['exato'])} x {PONTOS_EXATO} = {pontos_exatos} pontos")
+    print(f"Placares Parciais:   {len(ID_CATEGORIAS['parcial'])} x {PONTOS_PARCIAL} = {pontos_parciais} pontos")
+    print(f"Resultados Corretos: {len(ID_CATEGORIAS['resultado'])} x {PONTOS_RESULTADO} = {pontos_resultados} pontos")
+    print(f"Erros:               {len(ID_CATEGORIAS['erro'])} x {PONTOS_ERRO} = 0 pontos")
+    print(f"\nPONTUAÇÃO FINAL: {pontos_exatos + pontos_parciais + pontos_resultados} pontos")
+        
+
