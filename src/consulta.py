@@ -1,31 +1,27 @@
 import json
 #importado para consultar gabarito e palpites
-def Listar_Calendario():
+def Listar_Calendario(jogos):
     '''mostra todas as partidas realizadas e as proximas!'''
-    
-    with open("Archives/json/gabarito.json", "r", encoding="utf-8") as arquivo:
-        jogos = json.load(arquivo)
+
     print("\n==========================================") 
     print("          LISTA DE CALENDÁRIOS           ")
     print("==========================================")
     for jogo in jogos:
         gols1 = jogo["gols1"] if jogo["gols1"] != -1 else ""
         gols2 = jogo["gols2"] if jogo["gols2"] != -1 else ""
-        if jogo['grupo'] != "none":
+        if jogo['grupo'] != "None":
             print(f"ID: {jogo['id']} - Fase: {jogo['fase']} - Grupo: {jogo['grupo']} ")
         else:
             print(f"ID: {jogo['id']} - Fase: {jogo['fase']} ")    
         print(f"\n  {jogo['selecao1']} {gols1} X {gols2} {jogo['selecao2']}\n")
 
-def jogos_por_fase():
+def jogos_por_fase(jogos):
     '''função  o dicionario de jogos
     jogos: arquivo contendo a lista de dicionarios com todos os dados sobre os jogos(id, placar, times, etc.)
     numero_fase: variavel escolhida pelo usuario para acessar o grupo em jogos
     fases: converte numero em string
     '''
 
-    with open("Archives/json/gabarito.json", "r", encoding="utf-8") as arquivo:
-        jogos = json.load(arquivo)
     fases = ["Fase de grupos", "16-avos de final", "Oitavas de final", "Quartas de final", "Semifinais", "Disputa de 3º lugar", "final" ]
     print("        FASES:")
     print("----------------------")
@@ -52,16 +48,13 @@ def jogos_por_fase():
                 print(f"ID do jogo: {jogo['id']}\n")
             print(f"{jogo['selecao1']} {gols1} X {gols2} {jogo['selecao2']} \n ")
     if not fase_gerada:
-        print(f"O(s) jogo(s) da(s) {numero_fase} ") 
+        print(f"Nenhum jogo encontrado para {numero_fase}") 
 
-def jogos_por_grupo():
+def jogos_por_grupo(jogos):
     '''função recebe os grupo escolhido no menu e demonstra os jogos e placares desse grupo
     jogos: arquivo contendo a lista de dicionarios com todos os dados sobre os jogos(id, placar, times, etc.)
     grupo_escolhido: variavel escolhida pelo usuario para acessar o grupo em jogos
     '''
-
-    with open("Archives/json/gabarito.json", "r", encoding="utf-8") as arquivo:
-        jogos = json.load(arquivo)
     grupo_escolhido = input("digite o grupo que você pretende checar: ").upper()
     print(f"           Grupo: {grupo_escolhido}    ")
     print("--------------------------------")
@@ -71,12 +64,10 @@ def jogos_por_grupo():
             gols2 = jogo["gols2"] if jogo["gols2"] != -1 else ""
             print(f"ID do jogo: {jogo['id']}\n")
             print(f"{jogo['selecao1']} {gols1} X {gols2} {jogo['selecao2']} \n ")
-def jogos_por_id():
+def jogos_por_id(jogos):
     ''' função que demonstra o jogo de um id especifico
     '''
 
-    with open("Archives/json/gabarito.json", "r", encoding="utf-8") as arquivo:
-        jogos = json.load(arquivo)
     id_escolhido = input("digite o numero do id do jogo que você pretende checar: ")
     id_gerado = False
     for jogo in jogos:
@@ -144,10 +135,9 @@ def consulta_palpite_pendentes():
     if not palpites_faltam:
         print("Todos os palpites estão preenchidos.")
 
-def consulta_gabarito_oficial():
+def consulta_gabarito_oficial(jogos):
     '''função mostra o gabarito oficial, os jogos que já ocorreram'''
-    with open("Archives/json/gabarito.json", "r", encoding="utf-8") as arquivo:
-        jogos = json.load(arquivo)
+
     print("\n==========================================") 
     print("          GABARITO OFICIAL!           ")
     print("==========================================")
@@ -155,16 +145,15 @@ def consulta_gabarito_oficial():
         gols1 = jogo["gols1"] if jogo["gols1"] != -1 else ""
         gols2 = jogo["gols2"] if jogo["gols2"] != -1 else ""
         if gols1 != "" and gols2 != "":
-            if jogo['grupo'] != "none":
+            if jogo['grupo'] != "None":
                 print(f"ID: {jogo['id']} - Fase: {jogo['fase']} - Grupo: {jogo['grupo']} ")
             else:
                 print(f"ID: {jogo['id']} - Fase: {jogo['fase']} ")    
             print(f"\n  {jogo['selecao1']} {gols1} X {gols2} {jogo['selecao2']}\n")
 
-def consulta_gabarito_pendente():            
+def consulta_gabarito_pendente(jogos):            
     '''função demonstra os jogos pendentes'''
-    with open("Archives/json/gabarito.json", "r", encoding="utf-8") as arquivo:
-        jogos = json.load(arquivo)
+
     print("\n==========================================") 
     print("          GABARITO PENDENTE!           ")
     print("==========================================")
@@ -174,7 +163,7 @@ def consulta_gabarito_pendente():
         gols2 = jogo["gols2"] if jogo["gols2"] != -1 else ""
         if gols1 == "" and gols2 == "":
             gabarito_faltam = True
-            if jogo['grupo'] != "none":
+            if jogo['grupo'] != "None":
                 print(f"ID: {jogo['id']} - Fase: {jogo['fase']} - Grupo: {jogo['grupo']} ")
             else:
                 print(f"ID: {jogo['id']} - Fase: {jogo['fase']} ")    
