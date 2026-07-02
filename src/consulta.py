@@ -60,7 +60,7 @@ def jogos_por_grupo():
     grupo_escolhido: variavel escolhida pelo usuario para acessar o grupo em jogos
     '''
 
-    with open("Archives/json/gabarito.json", "r", encoding="utc-8") as arquivo:
+    with open("Archives/json/gabarito.json", "r", encoding="utf-8") as arquivo:
         jogos = json.load(arquivo)
     grupo_escolhido = input("digite o grupo que você pretende checar: ").upper()
     print(f"           Grupo: {grupo_escolhido}    ")
@@ -75,7 +75,7 @@ def jogos_por_id():
     ''' função que demonstra o jogo de um id especifico
     '''
 
-    with open("Archives/json/gabarito.json", "r", encoding="utc-8") as arquivo:
+    with open("Archives/json/gabarito.json", "r", encoding="utf-8") as arquivo:
         jogos = json.load(arquivo)
     id_escolhido = input("digite o numero do id do jogo que você pretende checar: ")
     id_gerado = False
@@ -179,6 +179,6 @@ def consulta_gabarito_pendente():
             else:
                 print(f"ID: {jogo['id']} - Fase: {jogo['fase']} ")    
             print(f"\n  {jogo['selecao1']} {gols1} X {gols2} {jogo['selecao2']}\n")
-        if not gabarito_faltam:
-            print("       Gabarito está completo")
-            print("\nPara ver os resultado dos jogos olhe o gabarito oficial")
+    if not gabarito_faltam:
+        print("       Gabarito está completo")
+        print("\nPara ver os resultado dos jogos olhe o gabarito oficial")
